@@ -88,9 +88,10 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		};
 
 		Player.prototype.stop = function () {
+			this.velocity = Zero();
 			this.leftDown = false;
 			this.rightDown = false;
-		}
+		};
 
 		Player.prototype.fadeOut = function () {
 			this.img.color = colors.shadow;

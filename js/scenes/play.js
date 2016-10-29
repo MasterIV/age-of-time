@@ -97,7 +97,6 @@ define([
 			this.keys.clear();
 			this.player.fadeOut();
 			this.player.stop();
-			this.player.velocity = Zero();
 
 			this.playbacks[this.character] = new Keys.Playback(this.recorder);
 			this.playbacks[this.character].delta = this.duration * 2;
