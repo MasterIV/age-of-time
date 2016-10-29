@@ -25,6 +25,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.grounded = false;
 			this.ghost = false;
 			this.collider = collider(this);
+			this.hitting = 0;
 
 			this.isWalking = false;
 			this.isJumping = false;
@@ -63,12 +64,32 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 				this.isJumping = false;
 				this.img.state = 0;
 			}
+
 			if (this.isWalking || this.isJumping) {
 				if (this.velocity.x < 0)
 					this.img.flip = -1;
 				else if (this.velocity.x > 0)
 					this.img.flip = 1;
 			}
+
+			if(this.hitting > 0 && this.character == 'e') {
+				if(this.img.state != 3)
+					this.oldstate = this.img.state;
+
+				this.img.state = 3;
+				this.hitting -= delta;
+
+				if(this.hitting < 1) {
+					this.img.state = this.oldstate;
+					this.img.duration = 100;
+				}
+			}
+		};
+
+		Player.prototype.hit = function () {
+			this.hitting = 390;
+			this.img.anitime = 0;
+			this.img.duration = 50;
 		};
 
 		Player.prototype.down = function(key) {

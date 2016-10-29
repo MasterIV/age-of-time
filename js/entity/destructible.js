@@ -1,5 +1,6 @@
 define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation'],
 	function(Entity, V2, colors, RectEntity, graphics, Animation) {
+		graphics.add('img/animations/door_explosion.png');
 
 		function Destructible(pos) {
 			Entity.call(this);
@@ -15,11 +16,22 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			var c = this.relativeArea().collision(area);
 
 			if(c && entity.character == 'e') {
-				this.destroyed = true;
+				this.destroy(entity);
 				return false;
 			} else {
 				return c;
 			}
+		};
+
+
+		Destructible.prototype.destroy = function(actor) {
+			if(actor.hit) actor.hit();
+
+			this.parent.parent.add(new Animation(
+				'img/animations/door_explosion.png',
+				this.position.sum(new V2(0, -40)), 18, 50));
+
+			this.destroyed = true;
 		};
 
 		Destructible.prototype.reset = function() {
