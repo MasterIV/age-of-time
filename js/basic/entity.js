@@ -41,7 +41,8 @@ define(['geo/v2', 'geo/rect', 'core/mouse'], function(V2, Rect, mouse) {
 	};
 
 	Entity.prototype.add = function (entity) {
-		entity.setParent(this);
+		if(entity.setParent)
+			entity.setParent(this);
 		this.entities.push(entity);
 	};
 
