@@ -22,6 +22,8 @@ define(['geo/v2'],
 			} else {
 				this.checkCollisionStep( move, collision );
 			}
+
+			return collision;
 		};
 
 		GridCollider.prototype.checkHorizontalCollision = function(move, pos, collision) {
