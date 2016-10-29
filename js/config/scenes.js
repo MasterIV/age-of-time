@@ -1,5 +1,5 @@
-define(['scenes/menu', 'scenes/credits', 'scenes/play', 'scenes/help', 'scenes/particles'],
-		function (MenuScene, CreditsScene, PlayScene, HelpScene, ParticleScene) {
+define(['scenes/menu', 'scenes/credits', 'scenes/play', 'scenes/help', 'scenes/particles', 'scenes/levels'],
+		function (MenuScene, CreditsScene, PlayScene, HelpScene, ParticleScene, LevelsScene) {
 			return {
 				init: function () {
 					this.menu = new MenuScene();
@@ -7,6 +7,7 @@ define(['scenes/menu', 'scenes/credits', 'scenes/play', 'scenes/help', 'scenes/p
 					this.play = new PlayScene();
 					this.help = new HelpScene();
 					this.particles = new ParticleScene();
+					this.levels = new LevelsScene();
 					this.default = this.menu;
 				}
 			};
