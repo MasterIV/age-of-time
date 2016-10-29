@@ -9,16 +9,29 @@ define(['basic/entity'],
 		KeyAggregator.prototype.dispatch = Entity.prototype.dispatch;
 
 		KeyAggregator.prototype.remove = function (entity) {
-			if( this.entities.indexOf(entity) > -1 )
+			if( this.entities.indexOf(entity) > -1 ) {
 				arrayRemove(this.entities, entity);
+				for(var key in this.keysDown) {
+					if(this.keysDown[key]) {
+						this.dispatch([entity], 'up', key);
+					}
+				}
+			}
 		};
 
 		KeyAggregator.prototype.add = function(entity) {
 			this.entities.push(entity);
+			for(var key in this.keysDown) {
+				if(this.keysDown[key]) {
+					this.dispatch([entity], 'down', key);
+				}
+			}
 		};
 
 		KeyAggregator.prototype.clear = function() {
-			this.entities = [];
+			while(this.entities.length) {
+				this.remove(this.entities[0]);
+			}
 		};
 
 		KeyAggregator.prototype.down = function (key) {
@@ -81,10 +94,10 @@ define(['basic/entity'],
 		KeyPlayback.prototype.replay = function (oldDelta, newDelta) {
 			for(var i = 0, j = this.keyRecorder.recordings.length; i < j; i++) {
 				var recording = this.keyRecorder.recordings[i];
-				if(recording.start > oldDelta && recording.start <= newDelta) {
+				if(recording.start >= oldDelta && recording.start < newDelta) {
 					this.dispatch(this.entities, 'down', recording.key);
 				}
-				if(recording.end > oldDelta && recording.end <= newDelta) {
+				if(recording.end >= oldDelta && recording.end < newDelta) {
 					this.dispatch(this.entities, 'up', recording.key);
 				}
 			}
