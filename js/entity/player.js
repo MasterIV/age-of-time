@@ -4,6 +4,9 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		graphics.add('img/adult_spritesheet_120x120.png');
 		graphics.add('img/child_spritesheet_120x120.png');
 		graphics.add('img/old_spritesheet_120x120.png');
+		graphics.add('img/old_spritesheet_120x120_ghost.png');
+		graphics.add('img/adult_spritesheet_120x120_ghost.png');
+		graphics.add('img/child_spritesheet_120x120_ghost.png');
 
 		function Player(pos, collider, character) {
 			Entity.call(this, pos);
@@ -11,9 +14,21 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.velocity = new V2(0,0);
 
 			switch(character) {
-				case 'y': this.img =  new Animation('img/child_spritesheet_120x120.png', new V2(-40,-40), new V2(8, 3), 100, true); this.size = new V2(40, 80); break;
-				case 'a': this.img =  new Animation('img/adult_spritesheet_120x120.png', new V2(-40,-10), new V2(8, 3), 100, true); this.size = new V2(40, 110); break;
-				case 'e': this.img =  new Animation('img/old_spritesheet_120x120.png', new V2(-30,-10), new V2(8, 4), 100, true); this.size = new V2(60, 110); break;
+				case 'y':
+					this.img_string = 'img/child_spritesheet_120x120';
+					this.img =  new Animation('img/child_spritesheet_120x120.png', new V2(-40,-40), new V2(8, 3), 100, true);
+					this.size = new V2(40, 80);
+					break;
+				case 'a':
+					this.img_string = 'img/adult_spritesheet_120x120';
+					this.img =  new Animation('img/adult_spritesheet_120x120.png', new V2(-40,-10), new V2(8, 3), 100, true);
+					this.size = new V2(40, 110);
+					break;
+				case 'e':
+					this.img_string = 'img/old_spritesheet_120x120';
+					this.img =  new Animation('img/old_spritesheet_120x120.png', new V2(-30,-10), new V2(8, 4), 100, true);
+					this.size = new V2(60, 110);
+					break;
 			}
 
 			this.add(this.img);
@@ -66,10 +81,12 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			}
 
 			if (this.isWalking || this.isJumping) {
-				if (this.velocity.x < 0)
+				if (this.velocity.x < 0) {
 					this.img.flip = -1;
-				else if (this.velocity.x > 0)
+				}
+				else if (this.velocity.x > 0) {
 					this.img.flip = 1;
+				}
 			}
 
 			if(this.hitting > 0 && this.character == 'e') {
@@ -132,10 +149,15 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.ghost = false;
 		};
 
-		// Player.prototype.onDraw = function (ctx) {
+		Player.prototype.onDraw = function (ctx) {
 		// 	ctx.strokeStyle = 'white';
 		// 	ctx.strokeRect(0, 0, this.size.x, this.size.y);
-		// };
+			if (this.ghost) {
+				this.img.img = graphics[this.img_string + '_ghost.png'];
+			} else {
+				this.img.img = graphics[this.img_string + '.png'];
+			}
+		};
 
 		return Player;
 	}
