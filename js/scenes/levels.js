@@ -1,5 +1,5 @@
-define(['lib/scene', 'lib/map', 'geo/v2', 'scenes/play', 'basic/button', 'definition/colors', 'config/screen', 'basic/layout'],
-	function(Scene, TiledMap, V2, PlayScene, Button, Colors, screen, Layout) {
+define(['lib/scene', 'lib/map',  'core/game', 'geo/v2', 'scenes/play', 'basic/button', 'definition/colors', 'config/screen', 'basic/layout'],
+	function(Scene, TiledMap, game, V2, PlayScene, Button, Colors, screen, Layout) {
 		function LevelsScene() {
 			Scene.call(this);
 
