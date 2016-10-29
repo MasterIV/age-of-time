@@ -6,7 +6,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		graphics.add('img/tiles/Button_top_yellow.png');
 
 		function PressurePlate(pos, color, triggerObjects) {
-			Entity.call(this, pos);
+			Entity.call(this, pos, new V2(40, 40));
 			this.img = graphics['img/tiles/Button_top_'+color+'.png'];
 			this.triggerObjects = triggerObjects;
 			this.targets = [];
