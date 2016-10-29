@@ -69,7 +69,7 @@
                  "name":"",
                  "properties":
                     {
-                     "character":"a",
+                     "character":"y",
                      "type":"spawn"
                     },
                  "propertytypes":
