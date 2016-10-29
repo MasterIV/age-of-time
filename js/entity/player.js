@@ -4,10 +4,11 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		var gravity = .6;
 		var speed = 100;
 
-		function Player(pos, collider, shadow) {
+		function Player(pos, collider) {
 			Entity.call(this);
 			this.position = pos;
-			this.add(new RectEntity(Zero(), new V2(40, 80), shadow? colors.shadow :colors.player));
+			this.img =  new RectEntity(Zero(), new V2(40, 80), colors.player);
+			this.add(this.img);
 			this.velocity = new V2(0,0);
 
 			this.grounded = false;
@@ -46,6 +47,14 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 				this.grounded = false;
 				this.velocity.y = -jumpSpeed;
 			}
+		};
+
+		Player.prototype.fadeOut = function () {
+			this.img.color = colors.shadow;
+		};
+
+		Player.prototype.fadeIn = function () {
+			this.img.color = colors.player;
 		};
 
 		return Player;

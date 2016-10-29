@@ -1,79 +1,126 @@
-define(['lib/scene', 'entity/player', 'lib/map', 'lib/viewport', 'basic/rect', 'config/colors', 'geo/v2', 'lib/gridcollider', 'entity/virtualkeyboard'],
-		function(Scene, Player, TiledMap, ViewPort, RectEntity, colors, V2, GridCollider, Keys ) {
-			var start = new V2(500, 500);
+define([
+		'lib/scene',
+		'entity/player',
+		'lib/map',
+		'lib/viewport',
+		'basic/rect',
+		'config/colors',
+		'geo/v2',
+		'lib/gridcollider',
+		'entity/virtualkeyboard',
+		'basic/entity',
+		'entity/characterselection'
+	], function (
+		Scene,
+		Player,
+		TiledMap,
+		ViewPort,
+		RectEntity,
+		colors,
+		V2,
+		GridCollider,
+		Keys,
+		Entity,
+		CharacterSelection
+	) {
+		var start = new V2(500, 500);
 
-			function PlayScene() {
-				Scene.call(this);
+		function PlayScene() {
+			Scene.call(this);
 
-				this.players = [];
-				this.playbacks = [];
+			this.map = new TiledMap('map');
+			this.viewport = new ViewPort(true);
+			this.selector = new CharacterSelection();
 
-				this.delta = 0;
-				this.duration = 10000;
+			this.players = {y: null, a: null, e: null};
+			this.playbacks = {y: null, a: null, e: null};
 
-				this.obstacle = new RectEntity(new V2(80, 400), new V2(40, 80), colors.default);
+			this.delta = 0;
+			this.duration = this.map.get('time') || 10000;
 
-				this.map = new TiledMap('map');
-				this.viewport = new ViewPort(true);
+			this.obstacles = new Entity();
+			this.obstacles.add(new RectEntity(new V2(80, 400), new V2(40, 80), colors.default));
 
-				this.player = new Player(start, GridCollider.factory(this.map, [this.obstacle]));
-				this.players.push(this.player);
+			this.keys = new Keys.Aggregator();
+			this.keyAware.push(this.keys);
 
-				this.keys = new Keys.Aggregator();
-				this.keys.add(this.player);
-				this.keyAware.push(this.keys);
+			this.viewport.add(this.map.render());
+			this.viewport.add(this.obstacles);
+			this.viewport.dragable(true);
 
-				this.viewport.add(this.map.render());
-				this.viewport.add(this.player);
-				this.viewport.add(this.obstacle);
-				this.viewport.follow(this.player);
+			this.add(this.viewport);
+			this.block(this.selector);
+		}
 
-				this.add(this.viewport);
+		PlayScene.prototype = new Scene();
 
-				this.initRecorder();
+		PlayScene.prototype.selectCharacter = function (character) {
+			if (this.players[character]) {
+				this.players[character].fadeIn();
+				this.playbacks[character] = null;
+			} else {
+				this.players[character] = new Player(start, GridCollider.factory(this.map, this.obstacles.entities));
+				this.viewport.add(this.players[character]);
 			}
 
-			PlayScene.prototype = new Scene();
+			this.character = character;
+			this.player = this.players[character];
+			this.keys.add(this.player);
 
-			PlayScene.prototype.reset = function() {
-				this.delta = 0;
+			this.viewport.dragable(false);
+			this.viewport.follow(this.player);
 
-				this.remove(this.recorder);
-				this.keys.remove(this.recorder);
+			this.delta = 0;
 
-				for(var i = 0; i < this.players.length; i++)
+			for (var i in this.players)
+				if (this.players[i])
 					this.players[i].position = new V2(500, 500);
-				for(var i = 0; i < this.playbacks.length; i++)
+
+			for (var i in this.playbacks)
+				if (this.playbacks[i])
 					this.playbacks[i].reset();
 
-				this.createShadow();
-				this.initRecorder();
-			};
+			this.recorder = new Keys.Recorder();
+			this.keys.add(this.recorder);
+		};
 
-			PlayScene.prototype.createShadow = function() {
-				var playback = new Keys.Playback(this.recorder);
-				this.playbacks.push(playback);
+		PlayScene.prototype.stop = function () {
+			this.keys.clear();
+			this.player.fadeOut();
 
-				var shadow = new Player(new V2(500, 500), GridCollider.factory(this.map, [this.obstacle]), true);
-				this.players.push(shadow);
+			this.playbacks[this.character] = new Keys.Playback(this.recorder);
+			this.playbacks[this.character].add(this.player);
 
-				this.viewport.add(shadow);
-				playback.add(shadow);
-				this.add(playback);
-			};
+			this.player = null;
+			this.viewport.dragable(true);
+			this.viewport.follow(null);
+			this.block(this.selector);
+		};
 
-			PlayScene.prototype.initRecorder = function() {
-				this.recorder = new Keys.Recorder();
-				this.keys.add(this.recorder);
-				this.add(this.recorder);
-			};
+		PlayScene.prototype.createShadow = function () {
+			var playback = new Keys.Playback(this.recorder);
+			this.playbacks.push(playback);
 
-			PlayScene.prototype.onUpdate = function(delta) {
-				this.delta += delta;
-				if(this.delta >= this.duration)
-					this.reset();
-			};
+			var shadow = new Player(new V2(500, 500), GridCollider.factory(this.map, [this.obstacle]), true);
+			this.players.push(shadow);
 
-			return PlayScene;
-		}
+			this.viewport.add(shadow);
+			playback.add(shadow);
+		};
+
+		PlayScene.prototype.onUpdate = function (delta) {
+			for (var i in this.playbacks)
+				if (this.playbacks[i])
+					this.playbacks[i].update(delta);
+
+			if (this.recorder)
+				this.recorder.update(delta);
+
+			this.delta += delta;
+			if (this.delta >= this.duration && this.player)
+				this.stop();
+		};
+
+		return PlayScene;
+	}
 );

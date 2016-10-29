@@ -17,6 +17,10 @@ define(['basic/entity'],
 			this.entities.push(entity);
 		};
 
+		KeyAggregator.prototype.clear = function() {
+			this.entities = [];
+		};
+
 		KeyAggregator.prototype.down = function (key) {
 			if (!this.keysDown[key]) {
 				this.keysDown[key] = true;
