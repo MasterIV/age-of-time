@@ -4,14 +4,13 @@ define([],
 	function() {
 		function Velociraptor() {
 			// Horizontal movement
-			this.acceleration = .3;
-			this.deceleration = .5;
-			this.speed = 200;
-			// Vertical movement
-			this.maxJumpSpeed = 400;
-			this.minJumpPower = .5;
-			this.gravity = .6;
+			this.acceleration = .4;
+			this.deceleration = .8;
 			this.speed = 300;
+			// Vertical movement
+			this.maxJumpSpeed = 600;
+			this.minJumpPower = .75;
+			this.gravity = .7;
 		}
 
 		Velociraptor.prototype.move = function(player, delta) {
@@ -49,9 +48,10 @@ define([],
 
 		Velociraptor.prototype.jump = function(player) {
 			var variableJumpPower = 1 - this.minJumpPower;
-			var currentBoost = 0;
-			var jump_power = this.maxJumpSpeed * this.minJumpPower + this.maxJumpSpeed * variableJumpPower;
-			player.velocity.y = -this.maxJumpSpeed;
+			var currentBoost = Math.abs(player.velocity.x / this.speed);
+
+			var jump_power = this.maxJumpSpeed * this.minJumpPower + this.maxJumpSpeed * variableJumpPower * currentBoost;
+			player.velocity.y = -jump_power;
 		};
 
 		return Velociraptor;
