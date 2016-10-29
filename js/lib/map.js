@@ -55,7 +55,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 				for( var i in this.sets ) {
 					var s = this.sets[i];
 					var r = t-s.start;
-					if(r>0&&r< s.max)
+					if(r>=0&&r< s.max)
 						s.draw(ctx, r, x, y);
 				}
 			};

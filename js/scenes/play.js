@@ -34,13 +34,13 @@ define([
 		var start = new V2(500, 500);
 		graphics.add('img/bg_forest.jpg');
 
-		function PlayScene() {
+		function PlayScene(level) {
 			Scene.call(this);
 
 			this.add(new TouchArea());
 
 			this.bg = 'img/bg_forest.jpg';
-			this.map = new TiledMap('map');
+			this.map = new TiledMap(level);
 			this.viewport = new ViewPort(true);
 			this.selector = new CharacterSelection();
 
