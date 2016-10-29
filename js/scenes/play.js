@@ -40,7 +40,7 @@ define([
 			this.playbacks = {y: null, a: null, e: null};
 
 			this.delta = 0;
-			this.duration = this.map.get('time') || 10000;
+			this.duration = this.map.get('time') || 100000;
 
 			this.obstacles = new Entity();
 			this.obstacles.add(new RectEntity(new V2(80, 400), new V2(40, 80), colors.default));

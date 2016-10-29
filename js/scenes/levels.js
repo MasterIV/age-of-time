@@ -6,7 +6,7 @@ define(['lib/scene', 'lib/map', 'geo/v2', 'basic/scrollfield', 'basic/button', '
 		//	var scrollfield = new ScrollfieldEntity(Zero(), new V2(screen.w, screen.h), 0, new Colors('#AAA', '#AAA'), new Colors('#111', '#111'));
 		//	this.add(scrollfield);
 
-			console.log(TileMaps);
+		//	console.log(TileMaps);
 
 			var level1 = Button.create(new V2(0, 0), function() { console.log("level 1"); }).rect(screen.w - 20, 200).text("Level 1");
 			var level2 = Button.create(new V2(0, 0), function() { console.log("level 2"); }).rect(screen.w - 20, 200).text("Level 2");
