@@ -61,6 +61,7 @@ define(['core/sound'],
 
 			player.velocity.y = -jump_power;
 			if (!player.ghost) snd.play('snd/jump.mp3');
+			else snd.play('snd/ghost_jump.mp3');
 
 		};
 
