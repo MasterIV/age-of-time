@@ -38,7 +38,7 @@
                  "properties":
                     {
                      "color":"green",
-                     "type":"key"
+                     "type":"button"
                     },
                  "propertytypes":
                     {
@@ -59,7 +59,7 @@
                  "properties":
                     {
                      "color":"blue",
-                     "type":"key"
+                     "type":"button"
                     },
                  "propertytypes":
                     {
@@ -80,7 +80,7 @@
                  "properties":
                     {
                      "color":"red",
-                     "type":"key"
+                     "type":"button"
                     },
                  "propertytypes":
                     {
