@@ -8,6 +8,11 @@ define(['basic/entity'],
 
 		KeyAggregator.prototype.dispatch = Entity.prototype.dispatch;
 
+		KeyAggregator.prototype.remove = function (entity) {
+			if( this.entities.indexOf(entity) > -1 )
+				arrayRemove(this.entities, entity);
+		};
+
 		KeyAggregator.prototype.add = function(entity) {
 			this.entities.push(entity);
 		};
@@ -60,6 +65,10 @@ define(['basic/entity'],
 			this.entities.push(entity);
 		};
 
+		KeyPlayback.prototype.reset = function() {
+			this.delta = 0;
+		};
+
 		KeyPlayback.prototype.update = function(delta) {
 			this.replay(this.delta, this.delta + delta);
 			this.delta += delta;
@@ -82,7 +91,7 @@ define(['basic/entity'],
 		return {
 			Aggregator: KeyAggregator,
 			Recorder: KeyRecorder,
-			Backplayer: KeyPlayback
+			Playback: KeyPlayback
 		};
 
 	}
