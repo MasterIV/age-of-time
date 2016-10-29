@@ -33,7 +33,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic'
 
 		Door.prototype.onDraw = function( ctx ) {
 			if(!this.isOpen)
-				ctx.drawImage(this.img, -20, 0);
+				ctx.drawImage(this.img, 0, 0);
 		};
 
 		return Door;
