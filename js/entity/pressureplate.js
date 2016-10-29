@@ -1,13 +1,11 @@
 define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation'],
 	function(Entity, V2, colors, RectEntity, graphics, Animation) {
 
-		function PressurePlate(pos, triggerObjects, target) {
-			Entity.call(this);
-
-			this.position = pos;
+		function PressurePlate(pos, triggerObjects) {
+			Entity.call(this, pos);
 			this.add(new RectEntity(Zero(), new V2(40, 40), colors.shadow));
 			this.triggerObjects = triggerObjects;
-			this.target = target;
+			this.targets = [];
 		}
 
 		PressurePlate.prototype = new Entity();
@@ -20,7 +18,8 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 					collides = true;
 				}
 			}
-			this.target.destroyed = collides;
+
+			this.dispatch(this.targets, 'setStatus', collides);
 		};
 
 		return PressurePlate;

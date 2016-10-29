@@ -13,7 +13,8 @@ define([
 		'entity/door',
 		'core/graphic',
 		'entity/destructible',
-		'entity/toucharea'
+		'entity/toucharea',
+		'entity/goal'
 	], function (
 		Scene,
 		Player,
@@ -29,7 +30,8 @@ define([
 		Door,
 		graphics,
 		Destructible,
-		TouchArea
+		TouchArea,
+		Goal
 	) {
 		var start = new V2(500, 500);
 		graphics.add('img/bg_forest.jpg');
@@ -46,17 +48,13 @@ define([
 
 			this.players = {y: null, a: null, e: null};
 			this.playbacks = {y: null, a: null, e: null};
+			this.spawn = {y: start, a: start, e: start};
 
 			this.delta = 0;
 			this.duration = this.map.get('time') || 10000;
 
 			this.obstacles = new Entity();
-			this.obstacles.add(new Destructible(new V2(800, 600)));
-
-			this.door = new Door(new V2(400, 600));
-			this.pressureplate = new PressurePlate(new V2(40, 600), this.players, this.door);
-			this.obstacles.add(this.door);
-			this.viewport.add(this.pressureplate);
+			this.spawnObjects(this.map.getObjects());
 
 			this.keys = new Keys.Aggregator();
 			this.keyAware.push(this.keys);
@@ -71,12 +69,55 @@ define([
 
 		PlayScene.prototype = new Scene();
 
+		PlayScene.prototype.spawnObjects = function(objects) {
+			var doors = { red: [], green: [], blue: [], yellow: [] };
+			var buttons = { red: [], green: [], blue: [], yellow: [] };
+
+			for(var i = 0; i < objects.length; i++) {
+				var o = objects[i];
+				if(!o.properties) continue;
+				var p = o.properties;
+
+				var pos = new V2(o.x, o.y);
+				pos.grid(this.map.tile.x, this.map.tile.y)
+				pos.mul(this.map.tile.x);
+				console.log(o, pos);
+
+				switch(p.type) {
+					case 'spawn':
+						this.spawn[p.character] = pos;
+						break;
+					case 'destructible':
+						this.obstacles.add(new Destructible(pos));
+						break;
+					case 'door':
+						var d = new Door(pos);
+						this.obstacles.add(d);
+						doors[p.color].push(d);
+						break;
+					case 'button':
+						var b = new PressurePlate(pos, this.players);
+						this.viewport.add(b);
+						buttons[p.color].push(d);
+						break;
+					case 'goal':
+						this.viewport.add(new Goal(pos, this.players));
+						break;
+				}
+			}
+
+			for(var c in buttons)
+				for(var i in buttons[c])
+					if(buttons[c] && doors[c] && buttons[c][i])
+						buttons[c][i].targets = doors[c];
+		};
+
 		PlayScene.prototype.selectCharacter = function (character) {
 			if (this.players[character]) {
 				this.players[character].fadeIn();
 				this.playbacks[character] = null;
 			} else {
-				this.players[character] = new Player(start, GridCollider.factory(this.map, this.obstacles.entities), character);
+				this.players[character] = new Player(this.spawn[character], GridCollider.factory(this.map, this.obstacles.entities), character);
 				this.viewport.add(this.players[character]);
 			}
 
