@@ -20,7 +20,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 					collides = true;
 				}
 			}
-			this.target.isOpen = collides;
+			this.target.destroyed = collides;
 		};
 
 		return PressurePlate;

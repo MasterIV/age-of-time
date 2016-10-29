@@ -3,7 +3,6 @@ define([
 		'entity/player',
 		'lib/map',
 		'lib/viewport',
-		'basic/rect',
 		'config/colors',
 		'geo/v2',
 		'lib/gridcollider',
@@ -11,13 +10,14 @@ define([
 		'basic/entity',
 		'entity/characterselection',
 		'entity/pressureplate',
-		'entity/door'
+		'entity/door',
+		'core/graphic',
+		'entity/destructible'
 	], function (
 		Scene,
 		Player,
 		TiledMap,
 		ViewPort,
-		RectEntity,
 		colors,
 		V2,
 		GridCollider,
@@ -25,13 +25,17 @@ define([
 		Entity,
 		CharacterSelection,
 		PressurePlate,
-		Door
+		Door,
+		graphics,
+		Destructible
 	) {
 		var start = new V2(500, 500);
+		graphics.add('img/bg_forest.jpg');
 
 		function PlayScene() {
 			Scene.call(this);
 
+			this.bg = 'img/bg_forest.jpg';
 			this.map = new TiledMap('map');
 			this.viewport = new ViewPort(true);
 			this.selector = new CharacterSelection();
@@ -40,18 +44,18 @@ define([
 			this.playbacks = {y: null, a: null, e: null};
 
 			this.delta = 0;
-			this.duration = this.map.get('time') || 100000;
+			this.duration = this.map.get('time') || 10000;
 
 			this.obstacles = new Entity();
-			this.obstacles.add(new RectEntity(new V2(80, 400), new V2(40, 80), colors.default));
+			this.obstacles.add(new Destructible(new V2(800, 600)));
 
-			this.keys = new Keys.Aggregator();
-			this.keyAware.push(this.keys);
-
-			this.door = new Door(new V2(40, 500));
+			this.door = new Door(new V2(400, 600));
 			this.pressureplate = new PressurePlate(new V2(40, 600), this.players, this.door);
 			this.obstacles.add(this.door);
 			this.viewport.add(this.pressureplate);
+
+			this.keys = new Keys.Aggregator();
+			this.keyAware.push(this.keys);
 
 			this.viewport.add(this.map.render());
 			this.viewport.add(this.obstacles);
@@ -68,7 +72,7 @@ define([
 				this.players[character].fadeIn();
 				this.playbacks[character] = null;
 			} else {
-				this.players[character] = new Player(start, GridCollider.factory(this.map, this.obstacles.entities));
+				this.players[character] = new Player(start, GridCollider.factory(this.map, this.obstacles.entities), character);
 				this.viewport.add(this.players[character]);
 			}
 
@@ -87,6 +91,10 @@ define([
 			for (var i in this.playbacks)
 				if (this.playbacks[i])
 					this.playbacks[i].reset();
+
+			for (var i in this.obstacles.entities)
+				if (this.obstacles.entities[i].reset)
+					this.obstacles.entities[i].reset();
 
 			this.recorder = new Keys.Recorder();
 			this.keys.add(this.recorder);

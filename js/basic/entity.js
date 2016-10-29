@@ -46,6 +46,10 @@ define(['geo/v2', 'geo/rect', 'core/mouse'], function(V2, Rect, mouse) {
 		this.entities.push(entity);
 	};
 
+	Entity.prototype.collision = function (entity, area) {
+		return this.relativeArea().collision(area);
+	};
+
 	Entity.prototype.relativeMouse = function () {
 		if (this.parent)
 			return this.parent.relativeMouse().dif(this.position);

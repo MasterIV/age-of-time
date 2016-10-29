@@ -52,7 +52,7 @@ define(['geo/v2'],
 			for (var i in this.obstacles) {
 				var o = this.obstacles[i];
 				if (( move.x > 0 && o.position.x > p.x) || (move.x < 0 && o.position.x < p.x))
-					if (o.relativeArea().collision(a)) {
+					if (o.collision(this.subject, a)) {
 						collision.x = true;
 						p.x = tileX * t.x - pxOffsetX + tileOffsetX;
 						return;
@@ -86,7 +86,7 @@ define(['geo/v2'],
 			for (var i in this.obstacles) {
 				var o = this.obstacles[i];
 				if (( move.y > 0 && o.position.y > p.y) || (move.y < 0 && o.position.y < p.y))
-					if (o.relativeArea().collision(a)) {
+					if (o.collision(this.subject, a)) {
 						collision.y = true;
 						p.y = tileY * t.y - pxOffsetY + tileOffsetY;
 						return;
