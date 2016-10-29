@@ -17,6 +17,7 @@ define([],
 
 			// Inputs
 
+			// Left / Right
 			if (player.leftDown) {
 				if (!player.rightDown) {
 					if (player.velocity.x > 0)
@@ -41,6 +42,10 @@ define([],
 					player.velocity.x = Math.min(0, player.velocity.x + this.acceleration * delta);
 			}
 
+			// Up
+			if (player.velocity.y < 0 && !player.upDown)
+				player.velocity.y += this.gravity * delta;
+
 			// Gravity
 
 			player.velocity.y += this.gravity * delta;
@@ -51,6 +56,7 @@ define([],
 			var currentBoost = Math.abs(player.velocity.x / this.speed);
 
 			var jump_power = this.maxJumpSpeed * this.minJumpPower + this.maxJumpSpeed * variableJumpPower * currentBoost;
+
 			player.velocity.y = -jump_power;
 		};
 

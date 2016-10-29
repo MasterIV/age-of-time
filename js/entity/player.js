@@ -3,6 +3,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 
 		graphics.add('img/adult_spritesheet_40x40.png');
 		graphics.add('img/child_spritesheet_40x40.png');
+		graphics.add('img/old_spritesheet_40x40.png');
 
 		function Player(pos, collider, character) {
 			Entity.call(this, pos);
@@ -12,13 +13,14 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			switch(character) {
 				case 'y': this.img =  new Animation('img/child_spritesheet_40x40.png', new V2(-20,-40), new V2(8, 3), 100, true); this.size = new V2(40, 40); break;
 				case 'a': this.img =  new Animation('img/adult_spritesheet_40x40.png', new V2(-20,-10), new V2(8, 3), 100, true); this.size = new V2(40, 70); break;
-				case 'e': this.img =  new RectEntity(Zero(), new V2(40, 70), colors.player_e); this.size = new V2(40, 70); break;
+				case 'e': this.img =  new Animation('img/old_spritesheet_40x40.png', new V2(-20,-10), new V2(8, 4), 100, true); this.size = new V2(40, 70); break;
 			}
 
 			this.add(this.img);
 
 			this.leftDown = false;
 			this.rightDown = false;
+			this.upDown = false;
 
 			this.grounded = false;
 			this.collider = collider(this);
@@ -27,8 +29,9 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.isJumping = false;
 
 			this.velociraptor = new Velociraptor();
-			if(character == 'a')
+			if(character == 'a') {
 				this.velociraptor.maxJumpSpeed *= 1.5;
+			}
 		}
 
 		Player.prototype = new Entity();
@@ -43,11 +46,10 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			if(c.y) this.velocity.y = 0;
 			if(c.x) this.velocity.x = 0;
 
-			if (this.character == 'e') return;
-
 			if (!this.grounded) {
 				if (!this.isJumping) {
 					this.isWalking = false;
+					this.isJumping = true;
 					this.img.state = 2;
 				}
 			} else if (this.velocity.x != 0) {
@@ -55,34 +57,34 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 					this.isWalking = true;
 					this.img.state = 1;
 				}
-			} else if(this.isWalking) {
+			} else if(this.isWalking || this.isJumping) {
 				this.isWalking = false;
+				this.isJumping = false;
 				this.img.state = 0;
 			}
 			if (this.isWalking || this.isJumping) {
 				if (this.velocity.x < 0)
 					this.img.flip = -1;
-				else
+				else if (this.velocity.x > 0)
 					this.img.flip = 1;
 			}
 		};
 
 		Player.prototype.down = function(key) {
 			switch(key) {
-				// case 'left': this.velocity.x = -speed; break;
-				// case 'right': this.velocity.x = speed; break;
 				case 'left': this.leftDown = true; break;
 				case 'right': this.rightDown = true; break;
-				case 'up': this.jump(); break;
-				case 'space': this.jump(); break;
+				case 'up':
+				case 'space': this.upDown = true; this.jump(); break;
 			}
 		};
 
 		Player.prototype.up = function(key) {
 			switch(key) {
-				//case 'left':  case 'right': this.velocity.x = 0; break;
 				case 'left': this.leftDown = false; break;
 				case 'right': this.rightDown = false; break;
+				case 'up':
+				case 'space': this.upDown = false; break;
 			}
 		};
 
