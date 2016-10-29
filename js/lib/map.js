@@ -86,6 +86,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 
 				this.palette = new TiledPalette(data.tilesets);
 				this.layers = data.layers;
+				this.properties = data.properties;
 			}
 
 			TiledMap.prototype.render = function(filter, pos) {
@@ -129,6 +130,10 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 					var l = this.layers[i];
 					if(l.name == name) return l;
 				}
+			};
+
+			TiledMap.prototype.get = function(property) {
+				return this.properties[property];
 			};
 
 			TiledMap.prototype.blocked = function(pos) {
