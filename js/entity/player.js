@@ -2,18 +2,20 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 	function(Entity, V2, colors, RectEntity, graphics, Animation) {
 		graphics.add('img/death.png');
 
-		function Player(pos) {
+		function Player(pos, collider) {
 			Entity.call(this);
 			this.position = pos;
 			this.add(new RectEntity(Zero(), new V2(40, 80), colors.player));
 			this.velocity = new V2(0,0);
 			this.speed = 100;
+
+			this.collider = collider(this);
 		}
 
 		Player.prototype = new Entity();
 
 		Player.prototype.onUpdate = function(delta) {
-			this.position.add(this.velocity.prd(delta/1000));
+			this.collider.move(this.velocity.prd(delta/1000));
 		};
 
 		Player.prototype.down = function(key) {
