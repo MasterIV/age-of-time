@@ -29,7 +29,7 @@
                  "name":"",
                  "properties":
                     {
-                     "character":"g",
+                     "character":"a",
                      "type":"spawn"
                     },
                  "propertytypes":
