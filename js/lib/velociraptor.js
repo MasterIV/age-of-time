@@ -11,7 +11,7 @@ define(['core/sound'],
 			this.speed = 300;
 			// Vertical movement
 			this.maxJumpSpeed = 600;
-			this.minJumpPower = .75;
+			this.minJumpPower = .85;
 			this.gravity = .8;
 		}
 
