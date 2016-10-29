@@ -1,7 +1,9 @@
 /* Moves the player */
 
-define([],
-	function() {
+define(['core/sound'],
+	function(snd) {
+		snd.add('snd/jump.mp3');
+
 		function Velociraptor() {
 			// Horizontal movement
 			this.acceleration = .4;
@@ -58,6 +60,8 @@ define([],
 			var jump_power = this.maxJumpSpeed * this.minJumpPower + this.maxJumpSpeed * variableJumpPower * currentBoost;
 
 			player.velocity.y = -jump_power;
+			if (!player.ghost) snd.play('snd/jump.mp3');
+
 		};
 
 		return Velociraptor;

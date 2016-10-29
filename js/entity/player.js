@@ -23,6 +23,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.upDown = false;
 
 			this.grounded = false;
+			this.ghost = false;
 			this.collider = collider(this);
 
 			this.isWalking = false;
@@ -102,10 +103,12 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 
 		Player.prototype.fadeOut = function () {
 			this.img.alpha = .5;
+			this.ghost = true;
 		};
 
 		Player.prototype.fadeIn = function () {
 			this.img.alpha = 1;
+			this.ghost = false;
 		};
 
 		// Player.prototype.onDraw = function (ctx) {
