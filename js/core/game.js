@@ -9,6 +9,8 @@ define(['config/config', 'config/screen', 'config/fonts'],
 			function( callback, element ){window.setTimeout(callback, 25);};
 		})();
 
+		var frametime = 25;
+
 		return {
 			frames: 0,
 			fps: 25,
@@ -63,19 +65,21 @@ define(['config/config', 'config/screen', 'config/fonts'],
 			},
 
 			loop: function() {
-				var now = Date.now();
-				var delta = now - this.lastUpdate;
+				var start = Date.now();
 
-				if( delta < 250 && this.scene ) {
-					this.update( delta );
+				// if( delta < 250 && this.scene ) {
+				if( this.scene ) {
+					this.update( frametime );
 					this.draw();
 				}
 
-				this.lastUpdate = now;
 				this.frames++;
-
 				var self = this;
-				requestAnimFrame( function() { self.loop(); });
+
+				//requestAnimFrame( function() { self.loop(); });
+				setTimeout(function () {
+					self.loop();
+				}, frametime-Date.now()+start);
 			},
 
 			update: function( delta ) {
