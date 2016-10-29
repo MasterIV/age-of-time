@@ -10,7 +10,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic'
 		graphics.add('img/tiles/door_yellow_b.png');
 
 		function Door(pos, color) {
-			Entity.call(this, pos, new V2(40, 80));
+			Entity.call(this, pos, new V2(40, 40));
 			this.isOpen = false;
 
 			var variation = Math.random() > .5 ? 'a' : 'b';
