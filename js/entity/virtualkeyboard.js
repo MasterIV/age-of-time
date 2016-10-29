@@ -1,72 +1,89 @@
 define(['basic/entity'],
 	function (Entity) {
-		function VirtualKeyboard() {
-			Entity.call(this);
-			this.isRecording = false;
+
+		function KeyAggregator() {
+			this.entities = [];
+			this.keysDown = {};
 		}
 
-		VirtualKeyboard.prototype = new Entity();
+		KeyAggregator.prototype.dispatch = Entity.prototype.dispatch;
 
-		VirtualKeyboard.prototype.onUpdate = function (delta) {
-			var oldDelta = this.delta;
-			this.delta += delta;
-			if (!this.isRecording && this.recordings != null && this.recordings.length > 0) {
-				this.performReplay(oldDelta, this.delta);
+		KeyAggregator.prototype.add = function(entity) {
+			this.entities.push(entity);
+		};
+
+		KeyAggregator.prototype.down = function (key) {
+			if (!this.keysDown[key]) {
+				this.keysDown[key] = true;
+				this.dispatch(this.entities, 'down', key);
 			}
 		};
 
-		VirtualKeyboard.prototype.down = function (key) {
-			if (this.isRecording) {
-				if (this.keyDownStart[key] == null) {
-					this.keyDownStart[key] = this.delta;
-					this.dispatch(this.entities, 'down', key);
-				}
+		KeyAggregator.prototype.up = function (key) {
+			if (this.keysDown[key]) {
+				this.keysDown[key] = false;
+				this.dispatch(this.entities, 'up', key);
 			}
 		};
 
-		VirtualKeyboard.prototype.up = function (key) {
-			if (this.isRecording) {
-				if (this.keyDownStart[key] != null) {
-					this.recordings.push({key: key, start: this.keyDownStart[key], end: this.delta});
-					this.keyDownStart[key] = null;
-					this.dispatch(this.entities, 'up', key);
-				}
-			}
-		};
+		/* ------------------------------------------------------------------------------------------------------ */
 
-		VirtualKeyboard.prototype.startRecording = function () {
-			this.isRecording = true;
+		function KeyRecorder() {
+			this.delta = 0;
 			this.keyDownStart = {};
 			this.recordings = [];
+		}
+
+		KeyRecorder.prototype.update = function(delta) {
+			this.delta += delta;
+		};
+
+		KeyRecorder.prototype.down = function(key) {
+			this.keyDownStart[key] = this.delta;
+		};
+
+		KeyRecorder.prototype.up = function(key) {
+			this.recordings.push({ key: key, start: this.keyDownStart[key], end: this.delta });
+		};
+
+		/* ------------------------------------------------------------------------------------------------------ */
+
+		function KeyPlayback(keyRecorder) {
+			this.keyRecorder = keyRecorder;
+			this.entities = [];
 			this.delta = 0;
+		}
+
+		KeyPlayback.prototype.dispatch = Entity.prototype.dispatch;
+
+		KeyPlayback.prototype.add = function(entity) {
+			this.entities.push(entity);
 		};
 
-		VirtualKeyboard.prototype.stopRecording = function () {
-			this.isRecording = false;
+		KeyPlayback.prototype.update = function(delta) {
+			this.replay(this.delta, this.delta + delta);
+			this.delta += delta;
 		};
 
-		VirtualKeyboard.prototype.replay = function () {
-			this.stopRecording();
-			this.delta = 0;
+		KeyPlayback.prototype.replay = function (oldDelta, newDelta) {
+			for(var i = 0, j = this.keyRecorder.recordings.length; i < j; i++) {
+				var recording = this.keyRecorder.recordings[i];
+				if(recording.start > oldDelta && recording.start <= newDelta) {
+					this.dispatch(this.entities, 'down', recording.key);
+				}
+				if(recording.end > oldDelta && recording.end <= newDelta) {
+					this.dispatch(this.entities, 'up', recording.key);
+				}
+			}
 		};
 
-		VirtualKeyboard.prototype.performReplay = function (oldDelta, newDelta) {
-			var self = this;
+		/* ------------------------------------------------------------------------------------------------------ */
 
-			this.recordings.filter(function (recording) {
-				return recording.start > oldDelta && recording.start <= newDelta;
-			}).map(function (recording) {
-				self.dispatch(self.entities, 'down', recording.key);
-			});
-
-			this.recordings.filter(function (recording) {
-				return recording.end > oldDelta && recording.end <= newDelta;
-			}).map(function (recording) {
-				self.dispatch(self.entities, 'up', recording.key);
-			});
+		return {
+			Aggregator: KeyAggregator,
+			Recorder: KeyRecorder,
+			Backplayer: KeyPlayback
 		};
-
-		return VirtualKeyboard;
 
 	}
 );
