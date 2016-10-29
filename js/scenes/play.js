@@ -12,7 +12,8 @@ define([
 		'entity/pressureplate',
 		'entity/door',
 		'core/graphic',
-		'entity/destructible'
+		'entity/destructible',
+		'entity/toucharea'
 	], function (
 		Scene,
 		Player,
@@ -27,13 +28,16 @@ define([
 		PressurePlate,
 		Door,
 		graphics,
-		Destructible
+		Destructible,
+		TouchArea
 	) {
 		var start = new V2(500, 500);
 		graphics.add('img/bg_forest.jpg');
 
 		function PlayScene() {
 			Scene.call(this);
+
+			this.add(new TouchArea());
 
 			this.bg = 'img/bg_forest.jpg';
 			this.map = new TiledMap('map');
