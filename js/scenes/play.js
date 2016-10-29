@@ -81,7 +81,6 @@ define([
 				var pos = new V2(o.x, o.y);
 				pos.grid(this.map.tile.x, this.map.tile.y)
 				pos.mul(this.map.tile.x);
-				console.log(o, pos);
 
 				switch(p.type) {
 					case 'spawn':
@@ -98,7 +97,7 @@ define([
 					case 'button':
 						var b = new PressurePlate(pos, this.players);
 						this.viewport.add(b);
-						buttons[p.color].push(d);
+						buttons[p.color].push(b);
 						break;
 					case 'goal':
 						this.viewport.add(new Goal(pos, this.players));
@@ -107,9 +106,8 @@ define([
 			}
 
 			for(var c in buttons)
-				for(var i in buttons[c])
-					if(buttons[c] && doors[c] && buttons[c][i])
-						buttons[c][i].targets = doors[c];
+				for(var j in buttons[c])
+					buttons[c][j].targets = doors[c];
 		};
 
 		PlayScene.prototype.selectCharacter = function (character) {
