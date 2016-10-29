@@ -79,7 +79,7 @@ define([
 				var p = o.properties;
 
 				var pos = new V2(o.x, o.y);
-				pos.grid(this.map.tile.x, this.map.tile.y)
+				pos.grid(this.map.tile.x, this.map.tile.y);
 				pos.mul(this.map.tile.x);
 
 				switch(p.type) {
@@ -90,7 +90,7 @@ define([
 						this.obstacles.add(new Destructible(pos));
 						break;
 					case 'door':
-						var d = new Door(pos);
+						var d = new Door(pos, p.color);
 						this.obstacles.add(d);
 						doors[p.color].push(d);
 						break;
