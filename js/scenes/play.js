@@ -92,9 +92,7 @@ define([
 				if (this.playbacks[i])
 					this.playbacks[i].reset();
 
-			for (var i in this.obstacles.entities)
-				if (this.obstacles.entities[i].reset)
-					this.obstacles.entities[i].reset();
+			this.obstacles.dispatch(this.obstacles.entities, 'reset');
 
 			this.recorder = new Keys.Recorder();
 			this.keys.add(this.recorder);
