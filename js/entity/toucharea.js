@@ -26,10 +26,12 @@ define(['basic/entity', 'geo/v2', 'core/mouse'],
 				self.parent.up('right');
 			};
 			Mouse.additionalTouchHandler = function() {
-				self.parent.down('up');
-				window.setTimeout(function(){
-					self.parent.up('up');
-				}, 20);
+				if(self && self.parent) {
+					self.parent.down('up');
+					window.setTimeout(function(){
+						self.parent.up('up');
+					}, 20);
+				}
 			};
 		}
 
