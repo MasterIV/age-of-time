@@ -49,7 +49,7 @@ define(['geo/v2', 'core/game', 'config/config'], function (V2, game, config) {
 			var index = ev.touches.length - 1;
 			this.onmousemove(ev.touches[index]);
 			this.onmousedown(ev.touches[index]);
-			primaryTouchId = ev.changedTouches[index].identifier;
+			primaryTouchId = ev.touches[index].identifier;
 		};
 
 		gameframe.ontouchmove = function (ev) {
