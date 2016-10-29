@@ -91,7 +91,7 @@
                  "properties":
                     {
                      "color":"blue",
-                     "type":"key"
+                     "type":"button"
                     },
                  "propertytypes":
                     {

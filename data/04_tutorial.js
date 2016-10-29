@@ -99,7 +99,7 @@
                  "properties":
                     {
                      "color":"red",
-                     "type":"key"
+                     "type":"button"
                     },
                  "propertytypes":
                     {
