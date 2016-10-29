@@ -9,7 +9,9 @@ define([
 		'lib/gridcollider',
 		'entity/virtualkeyboard',
 		'basic/entity',
-		'entity/characterselection'
+		'entity/characterselection',
+		'entity/pressureplate',
+		'entity/door'
 	], function (
 		Scene,
 		Player,
@@ -21,7 +23,9 @@ define([
 		GridCollider,
 		Keys,
 		Entity,
-		CharacterSelection
+		CharacterSelection,
+		PressurePlate,
+		Door
 	) {
 		var start = new V2(500, 500);
 
@@ -43,6 +47,11 @@ define([
 
 			this.keys = new Keys.Aggregator();
 			this.keyAware.push(this.keys);
+
+			this.door = new Door(new V2(40, 500));
+			this.pressureplate = new PressurePlate(new V2(40, 600), this.players, this.door);
+			this.obstacles.add(this.door);
+			this.viewport.add(this.pressureplate);
 
 			this.viewport.add(this.map.render());
 			this.viewport.add(this.obstacles);
