@@ -1,9 +1,9 @@
 define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation', 'lib/velociraptor', 'core/graphic'],
 	function(Entity, V2, colors, RectEntity, graphics, Animation, Velociraptor, graphics) {
 
-		graphics.add('img/adult_spritesheet_40x40.png');
-		graphics.add('img/child_spritesheet_40x40.png');
-		graphics.add('img/old_spritesheet_40x40.png');
+		graphics.add('img/adult_spritesheet_120x120.png');
+		graphics.add('img/child_spritesheet_120x120.png');
+		graphics.add('img/old_spritesheet_120x120.png');
 
 		function Player(pos, collider, character) {
 			Entity.call(this, pos);
@@ -11,9 +11,9 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.velocity = new V2(0,0);
 
 			switch(character) {
-				case 'y': this.img =  new Animation('img/child_spritesheet_40x40.png', new V2(-20,-40), new V2(8, 3), 100, true); this.size = new V2(40, 40); break;
-				case 'a': this.img =  new Animation('img/adult_spritesheet_40x40.png', new V2(-20,-10), new V2(8, 3), 100, true); this.size = new V2(40, 70); break;
-				case 'e': this.img =  new Animation('img/old_spritesheet_40x40.png', new V2(-20,-10), new V2(8, 4), 100, true); this.size = new V2(40, 70); break;
+				case 'y': this.img =  new Animation('img/child_spritesheet_120x120.png', new V2(-40,-40), new V2(8, 3), 100, true); this.size = new V2(40, 80); break;
+				case 'a': this.img =  new Animation('img/adult_spritesheet_120x120.png', new V2(-40,-10), new V2(8, 3), 100, true); this.size = new V2(40, 110); break;
+				case 'e': this.img =  new Animation('img/old_spritesheet_120x120.png', new V2(-30,-10), new V2(8, 4), 100, true); this.size = new V2(60, 110); break;
 			}
 
 			this.add(this.img);
@@ -108,9 +108,10 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.img.alpha = 1;
 		};
 
-/*		Player.prototype.onDraw = function (ctx) {
-			ctx.strokeRect(0,0, 40,80);
-		}*/
+		// Player.prototype.onDraw = function (ctx) {
+		// 	ctx.strokeStyle = 'white';
+		// 	ctx.strokeRect(0, 0, this.size.x, this.size.y);
+		// };
 
 		return Player;
 	}
