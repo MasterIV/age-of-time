@@ -10,7 +10,7 @@ define([],
 			// Vertical movement
 			this.maxJumpSpeed = 600;
 			this.minJumpPower = .75;
-			this.gravity = .7;
+			this.gravity = .8;
 		}
 
 		Velociraptor.prototype.move = function(player, delta) {

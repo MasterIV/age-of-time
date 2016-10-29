@@ -12,11 +12,11 @@ define([
 		}).rect(100, 100, colors.default).text('Y'));
 
 		this.add(Button.create(new V2(300, 300), function() {
-			self.select('A');
+			self.select('a');
 		}).rect(100, 100, colors.default).text('A'));
 
 		this.add(Button.create(new V2(500, 300), function() {
-			self.select('E');
+			self.select('e');
 		}).rect(100, 100, colors.default).text('E'));
 	}
 

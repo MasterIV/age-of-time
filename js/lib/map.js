@@ -55,7 +55,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 				for( var i in this.sets ) {
 					var s = this.sets[i];
 					var r = t-s.start;
-					if(r>0&&r< s.max)
+					if(r>=0&&r< s.max)
 						s.draw(ctx, r, x, y);
 				}
 			};
@@ -119,6 +119,21 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 				return new TiledLayer(canvas, pos);
 			};
 
+			TiledMap.prototype.getObjects = function(filter) {
+				var objects = [];
+
+				for(var i in this.layers) {
+					var l = this.layers[i];
+
+					if(l.visible && l.type == "objectgroup" && (!filter || filter.indexOf(l.name) >= 0))
+						for(var j = 0; j < l.objects.length; j++)
+							if(l.objects[j].visible)
+								objects.push(l.objects[j])
+				}
+
+				return objects;
+			};
+
 			TiledMap.prototype.toTile = function(pos) {
 				var result = pos.clone();
 				result.grid(this.tile.x, this.tile.y);
@@ -133,6 +148,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 			};
 
 			TiledMap.prototype.get = function(property) {
+				if(!this.properties) return;
 				return this.properties[property];
 			};
 
@@ -168,7 +184,6 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 				return null;
 			};
 
-			// TODO: add support for object layers
 			return TiledMap;
 		}
 );
