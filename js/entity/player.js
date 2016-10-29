@@ -37,8 +37,8 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.velociraptor.move(this, delta);
 			var c = this.collider.move(this.velocity.prd(delta/1000));
 
-			if(!this.grounded && c.y && this.velocity.y > 0)
-				this.grounded = true;
+			if(this.velocity.y > 0)
+				this.grounded = c.y;
 
 			if(c.y) this.velocity.y = 0;
 			if(c.x) this.velocity.x = 0;
