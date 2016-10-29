@@ -4,7 +4,7 @@ define(['scenes/menu', 'scenes/credits', 'scenes/play', 'scenes/help', 'scenes/p
 				init: function () {
 					this.menu = new MenuScene();
 					this.credits = new CreditsScene();
-					this.play = new PlayScene();
+					this.play = new PlayScene('map');
 					this.help = new HelpScene();
 					this.particles = new ParticleScene();
 					this.levels = new LevelsScene();
