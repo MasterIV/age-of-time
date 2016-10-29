@@ -40,8 +40,8 @@ define(['geo/v2', 'core/game', 'config/config'], function (V2, game, config) {
 		gameframe.ontouchstart = function (ev) {
 			ev.preventDefault();
 			if (primaryTouchId != null) {
-				if(self.additionalTouchHandler) {
-					self.additionalTouchHandler();
+				if(self.additionalTouchStartHandler) {
+					self.additionalTouchStartHandler();
 				}
 				return;
 			}
@@ -63,7 +63,12 @@ define(['geo/v2', 'core/game', 'config/config'], function (V2, game, config) {
 		gameframe.ontouchend = function (ev) {
 			var touch = getPrimaryTouch(ev.changedTouches);
 			ev.preventDefault();
-			if (touch == null) return;
+			if (touch == null) {
+				if(self.additionalTouchEndHandler) {
+					self.additionalTouchEndHandler();
+				}
+				return;
+			}
 
 			this.onmouseup(touch);
 			this.onclick(touch);

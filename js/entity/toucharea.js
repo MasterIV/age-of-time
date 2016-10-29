@@ -25,12 +25,14 @@ define(['basic/entity', 'geo/v2', 'core/mouse'],
 			this.right.onMouseUp = function(){
 				self.parent.up('right');
 			};
-			Mouse.additionalTouchHandler = function() {
+			Mouse.additionalTouchStartHandler = function() {
 				if(self && self.parent) {
 					self.parent.down('up');
-					window.setTimeout(function(){
-						self.parent.up('up');
-					}, 20);
+				}
+			};
+			Mouse.additionalTouchEndHandler = function() {
+				if(self && self.parent) {
+					self.parent.up('up');
 				}
 			};
 		}
