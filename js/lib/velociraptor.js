@@ -8,7 +8,7 @@ define([],
 			this.deceleration = .8;
 			this.speed = 300;
 			// Vertical movement
-			this.maxJumpSpeed = 400;
+			this.maxJumpSpeed = 600;
 			this.minJumpPower = .75;
 			this.gravity = .8;
 		}
