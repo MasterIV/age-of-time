@@ -49,7 +49,7 @@ define([
 			this.viewport.dragable(true);
 
 			this.add(this.viewport);
-			this.block(this.selector);
+			this.add(this.selector);
 		}
 
 		PlayScene.prototype = new Scene();
@@ -65,7 +65,6 @@ define([
 
 			this.character = character;
 			this.player = this.players[character];
-			this.keys.add(this.player);
 
 			this.viewport.dragable(false);
 			this.viewport.follow(this.player);
@@ -82,30 +81,22 @@ define([
 
 			this.recorder = new Keys.Recorder();
 			this.keys.add(this.recorder);
+			this.keys.add(this.player);
 		};
 
 		PlayScene.prototype.stop = function () {
 			this.keys.clear();
 			this.player.fadeOut();
+			this.player.velocity = Zero();
 
 			this.playbacks[this.character] = new Keys.Playback(this.recorder);
+			this.playbacks[this.character].delta = this.duration * 2;
 			this.playbacks[this.character].add(this.player);
 
 			this.player = null;
 			this.viewport.dragable(true);
 			this.viewport.follow(null);
-			this.block(this.selector);
-		};
-
-		PlayScene.prototype.createShadow = function () {
-			var playback = new Keys.Playback(this.recorder);
-			this.playbacks.push(playback);
-
-			var shadow = new Player(new V2(500, 500), GridCollider.factory(this.map, [this.obstacle]), true);
-			this.players.push(shadow);
-
-			this.viewport.add(shadow);
-			playback.add(shadow);
+			this.add(this.selector);
 		};
 
 		PlayScene.prototype.onUpdate = function (delta) {
