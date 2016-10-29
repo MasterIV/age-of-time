@@ -12,6 +12,14 @@
          "height":18,
          "name":"Ground",
          "opacity":1,
+         "properties":
+            {
+             "collision":true
+            },
+         "propertytypes":
+            {
+             "collision":"bool"
+            },
          "type":"tilelayer",
          "visible":true,
          "width":32,

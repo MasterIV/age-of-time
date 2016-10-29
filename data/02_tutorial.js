@@ -93,6 +93,14 @@
         }],
  "nextobjectid":6,
  "orientation":"orthogonal",
+ "properties":
+    {
+     "collision":true
+    },
+ "propertytypes":
+    {
+     "collision":"bool"
+    },
  "renderorder":"right-down",
  "tileheight":40,
  "tilesets":[

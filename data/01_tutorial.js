@@ -4,7 +4,7 @@
   TileMaps[name] = data;
  } else {
   onTileMapLoaded(name,data);
- }})("01_tutorial1",
+ }})("01_tutorial",
 { "height":18,
  "layers":[
         {
@@ -72,6 +72,14 @@
         }],
  "nextobjectid":5,
  "orientation":"orthogonal",
+ "properties":
+    {
+     "collision":true
+    },
+ "propertytypes":
+    {
+     "collision":"bool"
+    },
  "renderorder":"right-down",
  "tileheight":40,
  "tilesets":[
