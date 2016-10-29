@@ -224,7 +224,7 @@
                  "name":"",
                  "properties":
                     {
-                     "character":"o",
+                     "character":"e",
                      "type":"spawn"
                     },
                  "propertytypes":
