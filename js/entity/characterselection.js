@@ -1,23 +1,30 @@
 define([
-	'basic/entity', 'basic/button', 'config/colors', 'geo/v2'
+	'basic/entity', 'basic/button', 'config/colors', 'geo/v2', 'core/graphic'
 ], function (
-	Entity, Button, colors, V2
+	Entity, Button, colors, V2, graphics
 ) {
+	graphics.add('img/character_selection_adult.png');
+	graphics.add('img/character_selection_adult_glow.png');
+	graphics.add('img/character_selection_child.png');
+	graphics.add('img/character_selection_child_glow.png');
+	graphics.add('img/character_selection_old.png');
+	graphics.add('img/character_selection_old_glow.png');
+
 	function CharacterSelction() {
 		Entity.call(this);
 		var self = this;
 
-		this.add(Button.create(new V2(100, 300), function() {
+		this.add(Button.create(new V2(40, 400), function() {
 			self.select('y');
-		}).rect(100, 100, colors.default).text('Y'));
+		}).img('img/character_selection_child.png').hoverImg('img/character_selection_child_glow.png'));
 
-		this.add(Button.create(new V2(300, 300), function() {
+		this.add(Button.create(new V2(340, 400), function() {
 			self.select('a');
-		}).rect(100, 100, colors.default).text('A'));
+		}).img('img/character_selection_adult.png').hoverImg('img/character_selection_adult_glow.png'));
 
-		this.add(Button.create(new V2(500, 300), function() {
+		this.add(Button.create(new V2(640, 400), function() {
 			self.select('e');
-		}).rect(100, 100, colors.default).text('E'));
+		}).img('img/character_selection_old.png').hoverImg('img/character_selection_old_glow.png'));
 	}
 
 	CharacterSelction.prototype = new Entity();
