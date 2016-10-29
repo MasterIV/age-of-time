@@ -1,8 +1,9 @@
 define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation'],
 	function(Entity, V2, colors, RectEntity, graphics, Animation) {
 		var jumpSpeed = 400;
+		var acceleration = .3;
 		var gravity = .6;
-		var speed = 100;
+		var speed = 200;
 
 		function Player(pos, collider) {
 			Entity.call(this);
@@ -11,6 +12,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.add(this.img);
 			this.velocity = new V2(0,0);
 
+			this.acceleration = 0;
 			this.grounded = false;
 			this.collider = collider(this);
 		}
@@ -18,7 +20,18 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		Player.prototype = new Entity();
 
 		Player.prototype.onUpdate = function(delta) {
+			if(this.acceleration > 0) {
+				this.velocity.x = Math.min(speed, this.velocity.x + this.acceleration * delta);
+			} else if(this.acceleration < 0) {
+				this.velocity.x = Math.max(-speed, this.velocity.x + this.acceleration * delta);
+			} else if(this.velocity.x < 0) {
+				this.velocity.x = Math.min(0, this.velocity.x + acceleration * delta);
+			} else if(this.velocity.x > 0) {
+				this.velocity.x = Math.max(0, this.velocity.x - acceleration * delta);
+			}
+
 			this.velocity.y += gravity * delta;
+
 			var c = this.collider.move(this.velocity.prd(delta/1000));
 
 			if(!this.grounded && c.y && this.velocity.y > 0)
@@ -29,8 +42,10 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 
 		Player.prototype.down = function(key) {
 			switch(key) {
-				case 'left': this.velocity.x = -speed; break;
-				case 'right': this.velocity.x = speed; break;
+				// case 'left': this.velocity.x = -speed; break;
+				// case 'right': this.velocity.x = speed; break;
+				case 'left': this.acceleration = -acceleration; break;
+				case 'right': this.acceleration = acceleration; break;
 				case 'up': this.jump(); break;
 				case 'space': this.jump(); break;
 			}
@@ -38,7 +53,8 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 
 		Player.prototype.up = function(key) {
 			switch(key) {
-				case 'left':  case 'right': this.velocity.x = 0; break;
+				//case 'left':  case 'right': this.velocity.x = 0; break;
+				case 'left':  case 'right': this.acceleration = 0; break;
 			}
 		};
 
