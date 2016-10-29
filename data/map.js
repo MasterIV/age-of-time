@@ -46,8 +46,81 @@
          "width":100,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "height":18,
+         "name":"Objects",
+         "objects":[
+                {
+                 "height":71,
+                 "id":1,
+                 "name":"",
+                 "properties":
+                    {
+                     "type":"destructible"
+                    },
+                 "propertytypes":
+                    {
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":27,
+                 "x":605,
+                 "y":604
+                }, 
+                {
+                 "height":18,
+                 "id":2,
+                 "name":"",
+                 "properties":
+                    {
+                     "color":"red",
+                     "type":"button"
+                    },
+                 "propertytypes":
+                    {
+                     "color":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":22,
+                 "x":728,
+                 "y":452
+                }, 
+                {
+                 "height":20,
+                 "id":3,
+                 "name":"",
+                 "properties":
+                    {
+                     "character":"y",
+                     "type":"spawn"
+                    },
+                 "propertytypes":
+                    {
+                     "character":"string",
+                     "type":"string"
+                    },
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":28,
+                 "x":286,
+                 "y":653
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "width":100,
+         "x":0,
+         "y":0
         }],
- "nextobjectid":1,
+ "nextobjectid":5,
  "orientation":"orthogonal",
  "properties":
     {
