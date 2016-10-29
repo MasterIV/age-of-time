@@ -5,7 +5,7 @@ define(['basic/entity', 'geo/v2', 'basic/layout', 'basic/scrollbar'],
 
 			this.Scrollbar = new ScrollbarEntity(new V2(this.size.x - 20, 0), new V2(20, this.size.y));
 			if (bgColor) this.Scrollbar.bg(bgColor);
-			if (fgColor) this.Scrollbar.fg(fgColor);
+			//if (fgColor) this.Scrollbar.fg(fgColor);
 			this.add(this.Scrollbar);
 			this.Layout = new LayoutEntity.vertical(Zero(), 0, spacing);
 			this.add(this.Layout);
