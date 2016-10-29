@@ -95,7 +95,7 @@ define([
 						doors[p.color].push(d);
 						break;
 					case 'button':
-						var b = new PressurePlate(pos, this.players);
+						var b = new PressurePlate(pos, p.color, this.players);
 						this.viewport.add(b);
 						buttons[p.color].push(b);
 						break;
