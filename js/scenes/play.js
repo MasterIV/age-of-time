@@ -115,7 +115,7 @@ define([
 				this.players[character].fadeIn();
 				this.playbacks[character] = null;
 			} else {
-				this.players[character] = new Player(this.spawn[character], GridCollider.factory(this.map, this.obstacles.entities), character);
+				this.players[character] = new Player(Zero(), GridCollider.factory(this.map, this.obstacles.entities), character);
 				this.viewport.add(this.players[character]);
 			}
 
@@ -129,7 +129,7 @@ define([
 
 			for (var i in this.players)
 				if (this.players[i])
-					this.players[i].position = new V2(500, 500);
+					this.players[i].position = this.spawn[i].clone();
 
 			for (var i in this.playbacks)
 				if (this.playbacks[i])

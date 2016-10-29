@@ -3,9 +3,8 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 
 
 		function Player(pos, collider, character) {
-			Entity.call(this);
+			Entity.call(this, pos);
 			this.character = character;
-			this.position = pos;
 			this.velocity = new V2(0,0);
 
 			switch(character) {
