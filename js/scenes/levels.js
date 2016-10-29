@@ -3,13 +3,13 @@ define(['lib/scene', 'lib/map',  'core/game', 'geo/v2', 'scenes/play', 'basic/bu
 		function LevelsScene() {
 			Scene.call(this);
 
-			var vLayout = new Layout.vertical(new V2(0, 20), 20, 50);
+			var vLayout = new Layout.vertical(new V2(0, 50), 20, 10);
 
 			for(var i in TileMaps)
 				(function( level ){
 					vLayout.add( Button.create(new V2(0, 0), function() {
 						game.scene = new PlayScene(level);
-					}).rect(600, 80).text(level));
+					}).rect(600, 60).text(level));
 				})(i);
 
 			vLayout.align("center");
