@@ -1,7 +1,7 @@
 define( function() {
 	return {
 		sampels: [],
-				urls: [],
+				urls: [''],
 
 			play: function( file ) {
 		var self = this;

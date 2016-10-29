@@ -14,14 +14,10 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic'
 			this.isOpen = false;
 
 			var variation = Math.random() > .5 ? 'a' : 'b';
-			this.add(new ImageEntity(new V2(-20, 0), 'img/tiles/door_'+color+'_'+variation+'.png'));
+			this.img = graphics['img/tiles/door_'+color+'_'+variation+'.png'];
 		}
 
 		Door.prototype = new Entity();
-
-		Door.prototype.onUpdate = function() {
-			this.entities[0].color = this.isOpen ? colors.default : colors.player;
-		};
 
 		Door.prototype.setStatus = function(status) {
 			this.isOpen = status;
@@ -33,6 +29,11 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic'
 			} else {
 				return this.relativeArea().collision(area);
 			}
+		};
+
+		Door.prototype.onDraw = function( ctx ) {
+			if(!this.isOpen)
+				ctx.drawImage(this.img, -20, 0);
 		};
 
 		return Door;
