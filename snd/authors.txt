@@ -4,3 +4,8 @@ crack.mp3
     CC-BY InspectorJ (http://freesound.org/people/InspectorJ/sounds/352193/)
 step*.mp3
     CC-BY InspectorJ (http://freesound.org/people/InspectorJ/sounds/339325/)
+wilhelm.mp3
+    CC-BY-NC Syna-Max (http://freesound.org/people/Syna-Max/sounds/64940/)
+
+
+Other sounds: CC0

@@ -1,11 +1,45 @@
 var level;
 
-define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slideinright', 'basic/morph', 'definition/easing', 'basic/layout', 'scenes/play'],
-	function(Scene, Button, game, V2, SlideInRightTransition, Morph, Easing, Layout, PlayScene) {
+define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slideinright', 'basic/morph', 'definition/easing', 'basic/layout', 'scenes/play', 'core/graphic', 'core/sound'],
+	function(Scene, Button, game, V2, SlideInRightTransition, Morph, Easing, Layout, PlayScene, graphics, snd) {
+		graphics.add('img/main-screen-bg.jpg');
+		graphics.add('img/credits_normal.png');
+		graphics.add('img/credits_glow.png');
+		graphics.add('img/level_normal.png');
+		graphics.add('img/level_glow.png');
+		graphics.add('img/play_normal.png');
+		graphics.add('img/play_glow.png');
+		graphics.add('img/clear.png');
+		snd.add('snd/wilhelm.mp3');
+
 		function MenuScene() {
 			Scene.call(this);
 
-			var playButton = Button.create(new V2(0, 680), function() {
+			this.bg = 'img/main-screen-bg.jpg';
+
+			var levelButton = Button.create(new V2(302, 310), function() {
+				game.scene = require('config/scenes').levels;
+			}).img('img/level_normal.png').hoverImg('img/level_glow.png');
+
+			var playButton = Button.create(new V2(548, 291), function() {
+				level = 0;
+				game.scene = new PlayScene(MapNames[level]);
+			}).img('img/play_normal.png').hoverImg('img/play_glow.png');
+
+			var creditsButton = Button.create(new V2(755, 305), function() {
+				game.scene = new SlideInRightTransition(require('config/scenes').credits, 1000, Easing.OUTQUAD);
+			}).img('img/credits_normal.png').hoverImg('img/credits_glow.png');
+
+			var screamButton = Button.create(new V2(606, 611), function() {
+				snd.play('snd/wilhelm.mp3');
+			}).img('img/clear.png');
+
+			this.add(levelButton);
+			this.add(playButton);
+			this.add(creditsButton);
+			this.add(screamButton);
+
+/*			var playButton = Button.create(new V2(0, 680), function() {
 				level = 0;
 				game.scene = new PlayScene(MapNames[level]);
 			}).rect(280, 80).text("Play");
@@ -20,7 +54,7 @@ define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slidein
 			vLayout.add(creditsButton);
 			vLayout.add(helpButton);
 			vLayout.align("center");
-			this.center(vLayout);
+			this.center(vLayout);*/
 
 			//var easing = Easing.OUTELASTIC;
 			//var self = this;
