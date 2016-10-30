@@ -18,6 +18,7 @@ define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slidein
 			this.bg = 'img/main-screen-bg.jpg';
 
 			var levelButton = Button.create(new V2(302, 310), function() {
+				require('config/scenes').levels.updateProgress();
 				game.scene = new SlideInRightTransition(require('config/scenes').levels, 1000, Easing.OUTQUAD);
 			}).img('img/level_normal.png').hoverImg('img/level_glow.png');
 

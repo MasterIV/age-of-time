@@ -28,7 +28,7 @@ define([
 		
 		this.add(new Morph({backgroundOpacity: .7}, 2000, EASING.INCUBIC, function(){
 			self.add(new Morph({hLayout: {position: {y: 180}}}, 1600, EASING.OUTELASTIC));
-			self.add(new Back('levels'));
+			self.add(new Back('menu'));
 		}));
 			
 
