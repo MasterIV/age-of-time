@@ -6,7 +6,7 @@ define(['lib/scene', 'entity/back', 'basic/text', 'geo/v2'],
 				this.center(new TextEntity(new V2(0, 200), "Erica Mustemann"));
 				this.center(new TextEntity(new V2(0, 300), "Gunda Gamedesigner"));
 				this.center(new TextEntity(new V2(0, 400), "Peter Programmierer"));
-				this.add(BackButton('menu', true));
+				this.add(BackButton('menu', 'right'));
 			}
 
 			CreditsScene.prototype = new Scene();

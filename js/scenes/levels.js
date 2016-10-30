@@ -84,7 +84,7 @@ define([
 			hLayout.add(vLayout);
 			hLayout.align("top");
 			this.center(hLayout);
-			this.add(new Back('menu'));
+			this.add(new Back('menu', 'left'));
 
 			this.updateProgress();
 		}

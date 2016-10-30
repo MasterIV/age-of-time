@@ -1,7 +1,16 @@
 define([
-	'basic/entity', 'basic/button', 'config/colors', 'geo/v2', 'core/graphic', 'basic/layout', 'config/screen', 'basic/morph', 'definition/easing'
+	'basic/entity',
+	'basic/button',
+	'config/colors',
+	'geo/v2',
+	'core/graphic',
+	'basic/layout',
+	'config/screen',
+	'basic/morph',
+	'definition/easing',
+	'entity/back'
 ], function (
-	Entity, Button, colors, V2, graphics, Layout, screen, Morph, EASING
+	Entity, Button, colors, V2, graphics, Layout, screen, Morph, EASING, Back
 ) {
 	graphics.add('img/character_selection_adult.png');
 	graphics.add('img/character_selection_adult_glow.png');
@@ -19,6 +28,7 @@ define([
 		
 		this.add(new Morph({backgroundOpacity: .7}, 2000, EASING.INCUBIC, function(){
 			self.add(new Morph({hLayout: {position: {y: 180}}}, 1600, EASING.OUTELASTIC));
+			self.add(new Back('levels'));
 		}));
 			
 
