@@ -14,7 +14,8 @@ define([
 		'core/graphic',
 		'entity/destructible',
 		'entity/toucharea',
-		'entity/goal'
+		'entity/goal',
+		'entity/clock'
 	], function (
 		Scene,
 		Player,
@@ -31,7 +32,8 @@ define([
 		graphics,
 		Destructible,
 		TouchArea,
-		Goal
+		Goal,
+		Clock
 	) {
 		var start = new V2(500, 500);
 		graphics.add('img/bg_forest.jpg');
@@ -47,6 +49,7 @@ define([
 			this.map = new TiledMap(m);
 			this.viewport = new ViewPort(true);
 			this.selector = new CharacterSelection(this.map.properties);
+			this.clocks = 0;
 
 			this.players = {y: null, a: null, e: null};
 			this.playbacks = {y: null, a: null, e: null};
@@ -111,6 +114,9 @@ define([
 					case 'goal':
 						this.viewport.add(new Goal(pos, this.players));
 						break;
+					case 'clock':
+						this.viewport.add(new Clock(pos, this.players));
+						break;
 				}
 			}
 
@@ -161,6 +167,7 @@ define([
 			this.playbacks[this.character].add(this.player);
 
 			this.player = null;
+			this.clocks = 0;
 			this.add(this.selector);
 		};
 
