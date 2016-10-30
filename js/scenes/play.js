@@ -44,7 +44,7 @@ define([
 			this.bg = 'img/bg_forest.jpg';
 			this.map = new TiledMap(level);
 			this.viewport = new ViewPort(true);
-			this.selector = new CharacterSelection();
+			this.selector = new CharacterSelection(this.map.properties);
 
 			this.players = {y: null, a: null, e: null};
 			this.playbacks = {y: null, a: null, e: null};
@@ -90,9 +90,14 @@ define([
 						this.obstacles.add(new Destructible(pos));
 						break;
 					case 'door':
-						var d = new Door(pos, p.color);
-						this.obstacles.add(d);
-						doors[p.color].push(d);
+						var parts = Math.ceil(o.height / this.map.tile.y);
+
+						for(var j = 0; j < parts; j++) {
+							var d = new Door(pos.sum(new V2(0, j*this.map.tile.y)), p.color);
+							this.obstacles.add(d);
+							doors[p.color].push(d);
+						}
+
 						break;
 					case 'button':
 						var b = new PressurePlate(pos, p.color, this.players);
