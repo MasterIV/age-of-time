@@ -1,19 +1,14 @@
 define(['config/config'],
 	function(Config) {
 
-		function PersistentStorage() {
-			this.title = Config.title;
-		}
+		return {
+			set: function(key, value) {
+				return localStorage.setItem(Config.title + '::' + key, JSON.stringify(value));
+			},
+			get: function(key) {
+				return JSON.parse(localStorage.getItem(Config.title + '::' + key));
+			}
+		};
 
-		PersistentStorage.prototype.set = function(key, value) {
-			localStorage.setItem(this.title + '::' + key, JSON.stringify(value));
-		}
-
-		PersistentStorage.prototype.get = function(key) {
-			return JSON.parse(localStorage.getItem(this.title + '::' + key));
-		}
-
-		return PersistentStorage;
-		
 	}
 );
