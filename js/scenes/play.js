@@ -35,7 +35,7 @@ define([
 	) {
 		var start = new V2(500, 500);
 		graphics.add('img/bg_forest.jpg');
-		graphics.add('img/bg_cave.jpg');
+		graphics.add('img/bg_cave_02.jpg');
 
 		function PlayScene(m) {
 			Scene.call(this);
@@ -43,7 +43,7 @@ define([
 
 			this.add(new TouchArea());
 
-			this.bg = level < 7 ? 'img/bg_cave.jpg' : 'img/bg_forest.jpg';
+			this.bg = level < 7 ? 'img/bg_cave_02.jpg' : 'img/bg_forest.jpg';
 			this.map = new TiledMap(m);
 			this.viewport = new ViewPort(true);
 			this.selector = new CharacterSelection(this.map.properties);
@@ -61,7 +61,7 @@ define([
 			this.keys = new Keys.Aggregator();
 			this.keyAware.push(this.keys);
 			this.keyAware.push({
-				up: function(key) { if(key=='esc') self.stop(); }
+				up: function(key) { if(key=='esc' && self.player) self.stop(); }
 			});
 
 			this.viewport.add(this.map.render());
