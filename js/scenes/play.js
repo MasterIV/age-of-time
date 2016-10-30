@@ -15,7 +15,7 @@ define([
 		'entity/destructible',
 		'entity/toucharea',
 		'entity/goal',
-		'entity/progressbar'
+		'entity/progressbar',
 		'entity/clock'
 	], function (
 		Scene,
@@ -34,7 +34,7 @@ define([
 		Destructible,
 		TouchArea,
 		Goal,
-		Progressbar
+		Progressbar,
 		Clock
 	) {
 		var start = new V2(500, 500);
