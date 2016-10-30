@@ -8,6 +8,9 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		graphics.add('img/adult_spritesheet_120x120_ghost.png');
 		graphics.add('img/child_spritesheet_120x120_ghost.png');
 		snd.add('snd/punch.mp3');
+		snd.add('snd/step1.mp3');
+		snd.add('snd/step2.mp3');
+		snd.add('snd/step3.mp3');
 
 		function Player(pos, collider, character) {
 			Entity.call(this, pos);
@@ -44,6 +47,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			this.hitting = 0;
 
 			this.isWalking = false;
+			this.stepTime = -25;
 			this.isJumping = false;
 
 			this.velociraptor = new Velociraptor();
@@ -67,6 +71,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 			if (!this.grounded) {
 				if (!this.isJumping) {
 					this.isWalking = false;
+					this.stepTime = -250;
 					this.isJumping = true;
 					this.img.state = 2;
 				}
@@ -79,6 +84,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 				this.isWalking = false;
 				this.isJumping = false;
 				this.img.state = 0;
+				this.stepTime = -250;
 			}
 
 			if (this.isWalking || this.isJumping) {
@@ -102,10 +108,19 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 					this.img.duration = 100;
 				}
 			}
+
+			if (this.isWalking) {
+				this.stepTime += delta;
+				if (this.stepTime >= 250) {
+					this.stepTime = -250;
+					snd.play('snd/step' + Math.round(Math.random()*2+1) + '.mp3');
+				}
+			}
 		};
 
 		Player.prototype.hit = function () {
 			snd.play('snd/punch.mp3');
+			this.stepTime = -250;
 			this.hitting = 390;
 			this.img.anitime = 0;
 			this.img.duration = 50;
