@@ -11,7 +11,8 @@ define([
 		var self = this;
 
 		var bar = Button.create(new V2(850, 20), function() {
-			alert(19);
+			self.setProgress(1);
+			self.parent.delta = self.parent.duration;
 		}).img('img/timeline.png');
 		this.add(bar);
 
