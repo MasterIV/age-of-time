@@ -194,11 +194,11 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "collision":true
+     "y":true
     },
  "propertytypes":
     {
-     "collision":"bool"
+     "y":"bool"
     },
  "renderorder":"right-down",
  "tileheight":40,
@@ -241,6 +241,19 @@
          "tilecount":8,
          "tileheight":80,
          "tilewidth":80
+        }, 
+        {
+         "columns":8,
+         "firstgid":57,
+         "image":"..\/img\/tiles\/fg_assets.png",
+         "imageheight":160,
+         "imagewidth":320,
+         "margin":0,
+         "name":"fg_assets",
+         "spacing":0,
+         "tilecount":32,
+         "tileheight":40,
+         "tilewidth":40
         }],
  "tilewidth":40,
  "version":1,

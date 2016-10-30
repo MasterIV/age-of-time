@@ -64,7 +64,7 @@ define([
 			this.viewport.dragable(true);
 
 			this.add(this.viewport);
-			this.add(this.selector);
+			this.block(this.selector);
 		}
 
 		PlayScene.prototype = new Scene();
@@ -153,13 +153,13 @@ define([
 			this.player.stop();
 
 			this.playbacks[this.character] = new Keys.Playback(this.recorder);
-			this.playbacks[this.character].delta = this.duration * 2;
+			// this.playbacks[this.character].delta = this.duration * 2;
 			this.playbacks[this.character].add(this.player);
 
 			this.player = null;
 			this.viewport.dragable(true);
 			this.viewport.follow(null);
-			this.add(this.selector);
+			this.block(this.selector);
 		};
 
 		PlayScene.prototype.onUpdate = function (delta) {
