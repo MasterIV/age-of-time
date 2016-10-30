@@ -1,12 +1,13 @@
-define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation'],
-	function(Entity, V2, colors, RectEntity, graphics, Animation) {
+define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic', 'lib/animation'],
+	function(Entity, V2, colors, ImageEntity, graphics, Animation) {
 		graphics.add('img/animations/door_explosion.png');
+		graphics.add('img/tiles/destructible_box.png');
 
 		function Destructible(pos) {
 			Entity.call(this);
 			this.position = pos;
 			this.destroyed = false;
-			this.add(new RectEntity(Zero(), new V2(40, 80), colors.default));
+			this.add(new ImageEntity(Zero(), 'img/tiles/destructible_box.png'));
 		}
 
 		Destructible.prototype = new Entity();
@@ -29,7 +30,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 
 			this.parent.parent.add(new Animation(
 				'img/animations/door_explosion.png',
-				this.position.sum(new V2(0, -40)), 18, 50));
+				this.position, 18, 50));
 
 			this.destroyed = true;
 		};

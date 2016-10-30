@@ -1,8 +1,10 @@
-define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation', 'core/game'],
-	function(Entity, V2, colors, RectEntity, graphics, Animation, game) {
+define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic', 'lib/animation', 'core/game'],
+	function(Entity, V2, colors, ImageEntity, graphics, Animation, game) {
+		graphics.add('img/tiles/door.png');
+
 		function Goal(pos, triggerObjects) {
 			Entity.call(this, pos);
-			this.add(new RectEntity(Zero(), new V2(40, 40), colors.shadow));
+			this.add(new ImageEntity(new V2(0, -80), 'img/tiles/door.png'));
 			this.triggerObjects = triggerObjects;
 		}
 
