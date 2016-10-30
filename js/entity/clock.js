@@ -6,9 +6,11 @@ define([
 		'core/graphic',
 		'lib/animation',
 		'core/game',
-		'lib/persistentstorage'],
-	function(Entity, V2, colors, ImageEntity, graphics, Animation, game, storage) {
+		'lib/persistentstorage',
+		'core/sound'],
+	function(Entity, V2, colors, ImageEntity, graphics, Animation, game, storage, snd) {
 		graphics.add('img/tiles/collectible_clock.png');
+		snd.add('snd/clock.mp3');
 
 		function Clock(pos, triggerObjects) {
 			Entity.call(this, pos);
@@ -38,6 +40,7 @@ define([
 		Clock.prototype.collect = function() {
 			game.scene.clocks++;
 			this.destroyed = true;
+			snd.play('snd/clock.mp3');
 		};
 
 		return Clock;

@@ -7,9 +7,11 @@ define([
 		'lib/animation',
 		'core/game',
 		'lib/persistentstorage',
-		'entity/levelcomplete'],
-	function(Entity, V2, colors, ImageEntity, graphics, Animation, game, storage, LevelComplete) {
+		'entity/levelcomplete',
+		'core/sound'],
+	function(Entity, V2, colors, ImageEntity, graphics, Animation, game, storage, LevelComplete, snd) {
 		graphics.add('img/tiles/door.png');
+		snd.add('snd/win.mp3');
 
 		function Goal(pos, triggerObjects) {
 			Entity.call(this, pos.sum(new V2(0, -80)), new V2(40, 80));
@@ -32,6 +34,7 @@ define([
 			if (this.won) return;
 
 			this.won = true;
+			snd.play('snd/win.mp3');
 
 			var prgs = Math.max(game.scene.clocks, storage.get('level-'+level));
 			storage.set('level-'+level, prgs );
