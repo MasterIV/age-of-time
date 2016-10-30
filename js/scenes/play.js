@@ -61,10 +61,9 @@ define([
 
 			this.viewport.add(this.map.render());
 			this.viewport.add(this.obstacles);
-			this.viewport.dragable(true);
 
 			this.add(this.viewport);
-			this.block(this.selector);
+			this.add(this.selector);
 		}
 
 		PlayScene.prototype = new Scene();
@@ -157,9 +156,7 @@ define([
 			this.playbacks[this.character].add(this.player);
 
 			this.player = null;
-			this.viewport.dragable(true);
-			this.viewport.follow(null);
-			this.block(this.selector);
+			this.add(this.selector);
 		};
 
 		PlayScene.prototype.onUpdate = function (delta) {
