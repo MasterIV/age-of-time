@@ -1,7 +1,7 @@
 var level;
 
-define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slideinright', 'basic/morph', 'definition/easing', 'basic/layout', 'scenes/play', 'core/graphic', 'core/sound'],
-	function(Scene, Button, game, V2, SlideInRightTransition, Morph, Easing, Layout, PlayScene, graphics, snd) {
+define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slideinright', 'transitions/slideinleft', 'basic/morph', 'definition/easing', 'basic/layout', 'scenes/play', 'core/graphic', 'core/sound'],
+	function(Scene, Button, game, V2, SlideInRightTransition, SlideInLeftTransition, Morph, Easing, Layout, PlayScene, graphics, snd) {
 		graphics.add('img/main-screen-bg.jpg');
 		graphics.add('img/credits_normal.png');
 		graphics.add('img/credits_glow.png');
@@ -18,7 +18,7 @@ define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slidein
 			this.bg = 'img/main-screen-bg.jpg';
 
 			var levelButton = Button.create(new V2(302, 310), function() {
-				game.scene = require('config/scenes').levels;
+				game.scene = new SlideInRightTransition(require('config/scenes').levels, 1000, Easing.OUTQUAD);
 			}).img('img/level_normal.png').hoverImg('img/level_glow.png');
 
 			var playButton = Button.create(new V2(548, 291), function() {
@@ -27,7 +27,7 @@ define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slidein
 			}).img('img/play_normal.png').hoverImg('img/play_glow.png');
 
 			var creditsButton = Button.create(new V2(755, 305), function() {
-				game.scene = new SlideInRightTransition(require('config/scenes').credits, 1000, Easing.OUTQUAD);
+				game.scene = new SlideInLeftTransition(require('config/scenes').credits, 1000, Easing.OUTQUAD);
 			}).img('img/credits_normal.png').hoverImg('img/credits_glow.png');
 
 			var screamButton = Button.create(new V2(606, 611), function() {

@@ -13,7 +13,8 @@ define([
 	'basic/image',
 	'basic/text',
 	'lib/animation',
-	'config/fonts'
+	'config/fonts',
+	'entity/back'
 	], function(
 		Scene,
 		TiledMap,
@@ -29,7 +30,8 @@ define([
 		ImageEntity,
 		TextEntity,
 		Animation,
-		fonts
+		fonts,
+		Back
 	) {
 		graphics.add('img/level_selection_button_bg.png');
 		graphics.add('img/level_selection_collected_clocks.png');
@@ -82,6 +84,7 @@ define([
 			hLayout.add(vLayout);
 			hLayout.align("top");
 			this.center(hLayout);
+			this.add(new Back('menu'));
 
 			this.updateProgress();
 		}
