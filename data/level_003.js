@@ -217,25 +217,6 @@
                  "y":294
                 }, 
                 {
-                 "height":96,
-                 "id":10,
-                 "name":"",
-                 "properties":
-                    {
-                     "type":"destructible"
-                    },
-                 "propertytypes":
-                    {
-                     "type":"string"
-                    },
-                 "rotation":0,
-                 "type":"",
-                 "visible":true,
-                 "width":25,
-                 "x":1047.5,
-                 "y":537
-                }, 
-                {
                  "height":21,
                  "id":11,
                  "name":"",
@@ -251,8 +232,8 @@
                  "type":"",
                  "visible":true,
                  "width":26,
-                 "x":1167,
-                 "y":568.5
+                 "x":525,
+                 "y":172.5
                 }, 
                 {
                  "height":21,
