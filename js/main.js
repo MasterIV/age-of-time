@@ -16,6 +16,10 @@ define(
 				if( hash && scenes[hash] ) scene = scenes[hash];
 			}
 
+			if(config.title) {
+				document.title = config.title;
+			}
+
 			game.init(scene);
 		});
 	}

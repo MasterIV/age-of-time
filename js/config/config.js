@@ -1,3 +1,4 @@
 define({
-	debug: true
+	debug: true,
+	title: "MeMeMe"
 });
