@@ -35,14 +35,16 @@ define([
 	) {
 		var start = new V2(500, 500);
 		graphics.add('img/bg_forest.jpg');
+		graphics.add('img/bg_cave.jpg');
 
-		function PlayScene(level) {
+		function PlayScene(m) {
 			Scene.call(this);
+			var self = this;
 
 			this.add(new TouchArea());
 
-			this.bg = 'img/bg_forest.jpg';
-			this.map = new TiledMap(level);
+			this.bg = level < 7 ? 'img/bg_cave.jpg' : 'img/bg_forest.jpg';
+			this.map = new TiledMap(m);
 			this.viewport = new ViewPort(true);
 			this.selector = new CharacterSelection(this.map.properties);
 
@@ -58,6 +60,9 @@ define([
 
 			this.keys = new Keys.Aggregator();
 			this.keyAware.push(this.keys);
+			this.keyAware.push({
+				up: function(key) { if(key=='esc') self.stop(); }
+			});
 
 			this.viewport.add(this.map.render());
 			this.viewport.add(this.obstacles);

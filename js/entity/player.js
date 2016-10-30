@@ -159,21 +159,18 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		Player.prototype.fadeOut = function () {
 			this.img.alpha = .5;
 			this.ghost = true;
+			this.img.img = graphics[this.img_string + '_ghost.png'];
 		};
 
 		Player.prototype.fadeIn = function () {
 			this.img.alpha = 1;
 			this.ghost = false;
+			this.img.img = graphics[this.img_string + '.png'];
 		};
 
 		Player.prototype.onDraw = function (ctx) {
 		// 	ctx.strokeStyle = 'white';
 		// 	ctx.strokeRect(0, 0, this.size.x, this.size.y);
-			if (this.ghost) {
-				this.img.img = graphics[this.img_string + '_ghost.png'];
-			} else {
-				this.img.img = graphics[this.img_string + '.png'];
-			}
 		};
 
 		return Player;
