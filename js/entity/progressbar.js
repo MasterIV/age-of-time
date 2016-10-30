@@ -11,7 +11,7 @@ define([
 		var self = this;
 
 		this.topPosition = 730;
-		this.add(new Morph({topPosition: 621}, 1000, EASING.INOUTCUBIC));
+		this.add(new Morph({topPosition: 660}, 1000, EASING.INOUTCUBIC));
 
 		this.bar = Button.create(new V2(436, this.topPosition), function() {
 			self.setProgress(1);
