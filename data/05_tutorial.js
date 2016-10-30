@@ -42,7 +42,7 @@
                  "visible":true,
                  "width":31,
                  "x":204,
-                 "y":567
+                 "y":526
                 }, 
                 {
                  "height":25,
@@ -81,8 +81,8 @@
                  "type":"",
                  "visible":true,
                  "width":31,
-                 "x":163.5,
-                 "y":566.5
+                 "x":162.5,
+                 "y":527.5
                 }, 
                 {
                  "height":27,
@@ -169,12 +169,12 @@
          "columns":4,
          "firstgid":1,
          "image":"..\/img\/tiles\/tileset-complete40x40.png",
-         "imageheight":280,
+         "imageheight":320,
          "imagewidth":160,
          "margin":0,
          "name":"tileset-complete40x40",
          "spacing":0,
-         "tilecount":28,
+         "tilecount":32,
          "tileheight":40,
          "tilewidth":40
         }],
