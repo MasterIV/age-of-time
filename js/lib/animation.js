@@ -11,6 +11,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2', 'basic/rect'],
 				this.state = 0;
 				this.alpha = 1;
 				this.flip = 1;
+				this.scale = 1;
 
 				Entity.call(this, pos, new V2(this.img.width / this.frames.x, this.img.height / this.frames.y ));
 				//this.add(new Rect(this.position, this.size));
@@ -35,7 +36,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2', 'basic/rect'],
 				var trans = 0;
 				if (this.flip == -1)
 					trans = -this.size.x;
-				ctx.drawImage( this.img, this.frame*this.size.x, this.state*this.size.y, this.size.x, this.size.y, trans, 0, this.size.x, this.size.y );
+				ctx.drawImage( this.img, this.frame*this.size.x, this.state*this.size.y, this.size.x, this.size.y, trans, 0, this.size.x * this.scale, this.size.y * this.scale );
 				ctx.globalAlpha = 1;
 			};
 

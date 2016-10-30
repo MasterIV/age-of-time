@@ -161,10 +161,12 @@ define([
 			this.keys.add(this.player);
 		};
 
-		PlayScene.prototype.stop = function () {
+		PlayScene.prototype.stop = function (won) {
 			this.keys.clear();
-			this.player.fadeOut();
-			this.player.stop();
+			if (this.player) {
+				this.player.fadeOut();
+				this.player.stop();
+			}
 
 			this.playbacks[this.character] = new Keys.Playback(this.recorder);
 			this.playbacks[this.character].delta = this.duration * 2;
@@ -172,7 +174,7 @@ define([
 
 			this.player = null;
 			this.clocks = 0;
-			this.add(this.selector);
+			if (!won) this.add(this.selector);
 		};
 
 		PlayScene.prototype.onUpdate = function (delta) {
