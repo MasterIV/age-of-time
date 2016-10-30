@@ -151,6 +151,7 @@ define([
 					this.playbacks[i].reset();
 
 			this.obstacles.dispatch(this.obstacles.entities, 'reset');
+			this.obstacles.dispatch(this.viewport.entities, 'reset');
 
 			this.recorder = new Keys.Recorder();
 			this.keys.add(this.recorder);

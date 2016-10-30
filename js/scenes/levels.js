@@ -93,14 +93,12 @@ define([
 				var prgs = storage.get('level-'+i);
 				var b = this.buttons[i];
 
-				console.log(prgs);
-
 				if(prgs !== null && prgs !== b.prgs) {
 					if(prgs !== null && typeof b.prgs == 'undefined')
 						b.add(new ImageEntity(new V2(18, -20), 'img/level_selection_tick.png'));
 
 					for(var j = 0; j < 3; j++)
-						b.clocks[i].frame = prgs > j ? 0 : 1;
+						b.clocks[j].frame = prgs > j ? 0 : 1;
 
 					b.prgs = prgs;
 				}

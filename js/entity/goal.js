@@ -27,7 +27,7 @@ define([
 
 		Goal.prototype.win = function() {
 			var prgs = Math.max(game.scene.clocks, storage.get('level-'+level));
-			storage.set('level-'+level, game.scene.clocks );
+			storage.set('level-'+level, prgs );
 
 			var map = MapNames[++level];
 			var PlayScene = require('scenes/play');
