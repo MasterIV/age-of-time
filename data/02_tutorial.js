@@ -123,11 +123,13 @@
  "orientation":"orthogonal",
  "properties":
     {
-     "collision":true
+     "a":true,
+     "e":true
     },
  "propertytypes":
     {
-     "collision":"bool"
+     "a":"bool",
+     "e":"bool"
     },
  "renderorder":"right-down",
  "tileheight":40,

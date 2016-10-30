@@ -1,4 +1,5 @@
 var onTileMapLoaded;
+var MapNames = [];
 
 define(['basic/entity', 'core/graphic', 'geo/v2'],
 		function(Entity, graphics, V2) {
@@ -27,6 +28,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 			onTileMapLoaded = function(name, data) {
 				preloadImages(data);
 				TileMaps[name] = data;
+				MapNames.push(name);
 			};
 
 			function TiledSet(data) {
@@ -36,7 +38,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 
 				var w = data.tilewidth;
 				var h = data.tileheight;
-				var l = data.imagewidth / data.tilewidth;
+				var l = data.imagewidth / w;
 
 				this.draw = function(ctx, t, x, y) {
 					ctx.drawImage(this.img, (t%l)*w, Math.floor(t/l)*h, w, h, x*w, y*h, w, h );
@@ -55,6 +57,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 				for( var i in this.sets ) {
 					var s = this.sets[i];
 					var r = t-s.start;
+
 					if(r>=0&&r< s.max)
 						s.draw(ctx, r, x, y);
 				}
@@ -86,7 +89,7 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 
 				this.palette = new TiledPalette(data.tilesets);
 				this.layers = data.layers;
-				this.properties = data.properties;
+				this.properties = data.properties || [];
 			}
 
 			TiledMap.prototype.render = function(filter, pos) {
