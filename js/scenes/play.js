@@ -152,7 +152,7 @@ define([
 			this.player.stop();
 
 			this.playbacks[this.character] = new Keys.Playback(this.recorder);
-			// this.playbacks[this.character].delta = this.duration * 2;
+			this.playbacks[this.character].delta = this.duration * 2;
 			this.playbacks[this.character].add(this.player);
 
 			this.player = null;
