@@ -17,7 +17,7 @@ define([
 		this.backgroundOpacity = 0;
 		this.hLayout = new Layout.horizontal(new V2(0,-360), 20, 10);
 		
-		this.add(new Morph({backgroundOpacity: .7}, 4000, EASING.INCUBIC, function(){
+		this.add(new Morph({backgroundOpacity: .7}, 2000, EASING.INCUBIC, function(){
 			self.add(new Morph({hLayout: {position: {y: 180}}}, 1600, EASING.OUTELASTIC));
 		}));
 			

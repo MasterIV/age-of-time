@@ -15,6 +15,7 @@ define([
 		'entity/destructible',
 		'entity/toucharea',
 		'entity/goal',
+		'entity/progressbar'
 		'entity/clock'
 	], function (
 		Scene,
@@ -33,6 +34,7 @@ define([
 		Destructible,
 		TouchArea,
 		Goal,
+		Progressbar
 		Clock
 	) {
 		var start = new V2(500, 500);
@@ -71,6 +73,7 @@ define([
 			this.viewport.add(this.obstacles);
 
 			this.add(this.viewport);
+			this.add(new Progressbar());
 			this.add(this.selector);
 		}
 

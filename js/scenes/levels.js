@@ -13,8 +13,12 @@ define([
 	'basic/image',
 	'basic/text',
 	'lib/animation',
+<<<<<<< Updated upstream
 	'config/fonts',
 	'entity/back'
+=======
+	'config/fonts'
+>>>>>>> Stashed changes
 	], function(
 		Scene,
 		TiledMap,
@@ -30,8 +34,12 @@ define([
 		ImageEntity,
 		TextEntity,
 		Animation,
+<<<<<<< Updated upstream
 		fonts,
 		Back
+=======
+		fonts
+>>>>>>> Stashed changes
 	) {
 		graphics.add('img/level_selection_button_bg.png');
 		graphics.add('img/level_selection_collected_clocks.png');
@@ -84,7 +92,10 @@ define([
 			hLayout.add(vLayout);
 			hLayout.align("top");
 			this.center(hLayout);
+<<<<<<< Updated upstream
 			this.add(new Back('menu'));
+=======
+>>>>>>> Stashed changes
 
 			this.updateProgress();
 		}
