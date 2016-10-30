@@ -42,5 +42,11 @@ define([
 		this.parent.selectCharacter(character);
 	};
 
+	CharacterSelction.prototype.onDraw = function (ctx) {
+		ctx.fillStyle = 'rgba(0,0,0,.7)';
+		ctx.fillRect(0,0,this.size.x, this.size.y);
+	};
+
+
 	return CharacterSelction;
 });

@@ -22,8 +22,10 @@ define(['basic/entity', 'core/graphic', 'geo/v2'],
 			}
 
 			if(typeof(TileMaps) != "undefined")
-				for(var i in TileMaps)
+				for(var i in TileMaps) {
 					preloadImages(TileMaps[i]);
+					MapNames.push(i);
+				}
 
 			onTileMapLoaded = function(name, data) {
 				preloadImages(data);
