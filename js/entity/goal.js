@@ -47,8 +47,10 @@ define([
 				else game.scene = require('config/scenes').menu;
 			});
 			game.scene.center(levelComplete);
-			game.scene.player.velocity.x = 0;
-			game.scene.player.velocity.y = 0;
+			if (game.scene.player) {
+				game.scene.player.velocity.x = 0;
+				game.scene.player.velocity.y = 0;
+			}
 			game.scene.stop(true);
 			//game.scene.keyAware.push(levelComplete);
 		};
