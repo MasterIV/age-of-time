@@ -10,6 +10,7 @@ define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slidein
 		graphics.add('img/play_normal.png');
 		graphics.add('img/play_glow.png');
 		graphics.add('img/clear.png');
+		graphics.add('img/button_fullscreen.png');
 		snd.add('snd/wilhelm.mp3');
 
 		function MenuScene() {
@@ -35,10 +36,35 @@ define(['lib/scene', 'basic/button', 'core/game', 'geo/v2', 'transitions/slidein
 				snd.play('snd/wilhelm.mp3');
 			}).img('img/clear.png');
 
+			var fullscreenButton = Button.create(new V2(1165, 20), function(){
+				if (!document.fullscreenElement && !document.mozFullScreenElement && !document.webkitFullscreenElement && !document.msFullscreenElement ) {
+					if (document.body.requestFullscreen) {
+						document.body.requestFullscreen();
+					} else if (document.body.msRequestFullscreen) {
+						document.body.msRequestFullscreen();
+					} else if (document.body.mozRequestFullScreen) {
+						document.body.mozRequestFullScreen();
+					} else if (document.body.webkitRequestFullscreen) {
+						document.body.webkitRequestFullscreen(Element.ALLOW_KEYBOARD_INPUT);
+					}
+				} else {
+					if (document.exitFullscreen) {
+						document.exitFullscreen();
+					} else if (document.msExitFullscreen) {
+						document.msExitFullscreen();
+					} else if (document.mozCancelFullScreen) {
+						document.mozCancelFullScreen();
+					} else if (document.webkitExitFullscreen) {
+						document.webkitExitFullscreen();
+					}
+				}
+			}).img('img/button_fullscreen.png');
+
 			this.add(levelButton);
 			this.add(playButton);
 			this.add(creditsButton);
 			this.add(screamButton);
+			this.add(fullscreenButton);
 
 /*			var playButton = Button.create(new V2(0, 680), function() {
 				level = 0;

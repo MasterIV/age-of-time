@@ -10,16 +10,16 @@ define([
 		Entity.call(this, pos);
 		var self = this;
 
-		this.topPosition = -180;
-		this.add(new Morph({topPosition: 20}, 1000, EASING.INOUTCUBIC));
+		this.topPosition = 730;
+		this.add(new Morph({topPosition: 621}, 1000, EASING.INOUTCUBIC));
 
-		this.bar = Button.create(new V2(850, 20), function() {
+		this.bar = Button.create(new V2(436, this.topPosition), function() {
 			self.setProgress(1);
 			self.parent.delta = self.parent.duration;
 		}).img('img/timeline.png');
 		this.add(this.bar);
 
-		this.progressImage = new PartialImage(new V2(850, 20), 'img/timeline_full.png', 1, 0);
+		this.progressImage = new PartialImage(new V2(436, this.topPosition), 'img/timeline_full.png', 1, 0);
 		this.add(this.progressImage);
 
 		this.setProgress(0);
