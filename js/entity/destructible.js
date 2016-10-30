@@ -1,7 +1,8 @@
-define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic', 'lib/animation'],
-	function(Entity, V2, colors, ImageEntity, graphics, Animation) {
+define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic', 'lib/animation', 'core/sound'],
+	function(Entity, V2, colors, ImageEntity, graphics, Animation, snd) {
 		graphics.add('img/animations/door_explosion.png');
 		graphics.add('img/tiles/destructible_box.png');
+		snd.add('snd/crack.mp3');
 
 		function Destructible(pos) {
 			Entity.call(this);
@@ -32,6 +33,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/image', 'core/graphic'
 				'img/animations/door_explosion.png',
 				this.position, 18, 50));
 
+			snd.play('snd/crack.mp3');
 			this.destroyed = true;
 		};
 

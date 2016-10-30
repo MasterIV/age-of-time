@@ -1,2 +1,4 @@
 button.mp3
     CC-BY distillerystudio (http://freesound.org/people/distillerystudio/sounds/327732/)
+crack.mp3
+    CC-BY InspectorJ (http://freesound.org/people/InspectorJ/sounds/352193/)

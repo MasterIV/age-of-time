@@ -1,5 +1,5 @@
-define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation', 'lib/velociraptor', 'core/graphic'],
-	function(Entity, V2, colors, RectEntity, graphics, Animation, Velociraptor, graphics) {
+define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic', 'lib/animation', 'lib/velociraptor', 'core/sound'],
+	function(Entity, V2, colors, RectEntity, graphics, Animation, Velociraptor, snd) {
 
 		graphics.add('img/adult_spritesheet_120x120.png');
 		graphics.add('img/child_spritesheet_120x120.png');
@@ -7,6 +7,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		graphics.add('img/old_spritesheet_120x120_ghost.png');
 		graphics.add('img/adult_spritesheet_120x120_ghost.png');
 		graphics.add('img/child_spritesheet_120x120_ghost.png');
+		snd.add('snd/punch.mp3');
 
 		function Player(pos, collider, character) {
 			Entity.call(this, pos);
@@ -104,6 +105,7 @@ define(['basic/entity', 'geo/v2', 'config/colors', 'basic/rect', 'core/graphic',
 		};
 
 		Player.prototype.hit = function () {
+			snd.play('snd/punch.mp3');
 			this.hitting = 390;
 			this.img.anitime = 0;
 			this.img.duration = 50;
