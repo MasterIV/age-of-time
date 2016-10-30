@@ -3,17 +3,28 @@ define(['lib/scene', 'lib/map',  'core/game', 'geo/v2', 'scenes/play', 'basic/bu
 		function LevelsScene() {
 			Scene.call(this);
 
-			var vLayout = new Layout.vertical(new V2(0, 50), 20, 10);
+			var hLayout = new Layout.horizontal(Zero(), 20, 10);
+			var vLayout = new Layout.vertical(Zero(), 20, 10);
+			var count = 1;
 
 			for(var i in TileMaps)
 				(function( level ){
 					vLayout.add( Button.create(new V2(0, 0), function() {
 						game.scene = new PlayScene(level);
-					}).rect(600, 60).text(level));
+					}).rect(500, 60).text(level));
+
+					if(++count > 9) {
+						vLayout.align("center");
+						hLayout.add(vLayout);
+						vLayout = new Layout.vertical(Zero(), 20, 10);
+						count = 1;
+					}
 				})(i);
 
 			vLayout.align("center");
-			this.center(vLayout);
+			hLayout.add(vLayout);
+			hLayout.align("center");
+			this.center(hLayout);
 		}
 
 		LevelsScene.prototype = new Scene();
